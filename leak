@@ -1,0 +1,27 @@
+Process:         a.out [34853]
+Path:            /Volumes/VOLUME/*/a.out
+Load Address:    0x106b0e000
+Identifier:      a.out
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [33835]
+
+Date/Time:       2021-07-28 03:49:09.138 +0900
+Launch Time:     2021-07-28 03:49:08.775 +0900
+OS Version:      Mac OS X 10.15.7 (19H1323)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 12.3 (12C33)
+
+Physical footprint:         308K
+Physical footprint (peak):  308K
+----
+
+leaks Report Version: 4.0
+Process 34853: 146 nodes malloced for 11 KB
+Process 34853: 2 leaks for 64 total leaked bytes.
+
+    2 (64 bytes) << TOTAL >>
+      1 (48 bytes) ROOT LEAK: 0x7f9984c05520 [48]  length: 38  "1234567890123456789012345678901234567"
+      1 (16 bytes) ROOT LEAK: 0x7f9984c05550 [16]  length: 2  "0"
+
