@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mson <mson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/02 21:20:45 by mson              #+#    #+#             */
-/*   Updated: 2021/07/28 23:22:15 by mson             ###   ########.fr       */
+/*   Created: 2021/06/12 21:58:55 by mson              #+#    #+#             */
+/*   Updated: 2021/07/28 23:22:46 by mson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
