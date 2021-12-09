@@ -13,8 +13,7 @@ typedef struct s_info
     int width;
     int precision;
     char type;
-    int nbr_base;
-    int nbr_sign;
+    int sign;
 } t_info;
 
 typedef struct s_detail
