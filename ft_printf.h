@@ -16,10 +16,8 @@ typedef struct s_info
     int sign;
 } t_info;
 
-typedef struct s_detail
-{
-    ma
-
-} t_detail;
+int print_char(int c, t_info *info);
+int print_string(char *s, t_info *info);
+int print_nbr(long long int num, t_info *info);
 
 #endif
