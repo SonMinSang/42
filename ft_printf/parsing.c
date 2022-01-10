@@ -5,7 +5,7 @@ void init_info(t_info *info)
     info->minus = 0;
     info->zero = 0;
     info->width = 0;
-    info->precision = -1;
+    info->precision = 0;
     info->type = 0;
 }
 
@@ -93,4 +93,85 @@ int parsing(va_list ap, const char *format, int *length)
     }
     free(info);
     return (length);
+}
+
+int parse_flag(char *str, int i, t_info *info)
+{
+    while (str[i] == '-' || str[i] == '0')
+    {
+        if (str[i] == '-')
+            info->minus = 1;
+        if (str[i] == '0')
+            info->zero = 1;
+        i++;
+    }
+    if (info->minus && info->zero)
+        info->zero = 0;
+    return (i);
+}
+
+int parse_width(char *str, int i, t_info *info)
+{
+    while (ft_isdigit(str[i]))
+    {
+        info->width = (info->width * 10) + (str[i] - '0');
+        i++;
+    }
+    return (i);
+}
+
+int parse_prec(char *str, int i, t_info *info)
+{
+    if (str[i] == '.')
+    {
+        info->dot = 1;
+        i++;
+    }
+    while (ft_isdigit(str[i]))
+    {
+        info->precision = (info->precision * 10) + str[i] - '0';
+        i++;
+    }
+}
+
+int parse_spec(char *str, int i, t_info *info)
+{
+    char *type;
+
+    type = "cspdiuxX%";
+    while (*type)
+    {
+        if (*type == str[i])
+        {
+            info->type = str[i];
+            return (++i);
+        }
+        *type++;
+    }
+    return (-1);
+}
+
+void parsing(char *str, t_info *info, va_list ap)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == '%')
+        {
+            i++;
+            i = parse_flag(str, i, info);
+            i = parse_width(str, i, info);
+            i = parse_prec(str, i, info);
+            i = parse_spec(str, i, info);
+            print(ap, info);
+            init_info(info);
+        }
+        else
+        {
+            ft_putchar(str[i], info);
+            i++;
+        }
+    }
 }

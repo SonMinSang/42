@@ -9,17 +9,22 @@
 typedef struct s_info
 {
     int minus;
+    int dot;
     int zero;
     int width;
     int precision;
     char type;
     int sign;
+    int length;
+    int space_len;
+    int zero_len;
 } t_info;
 
-typedef struct s_detail
-{
-    ma
-
-} t_detail;
-
+int print_char(va_list ap, t_info *info);
+int print_space_char(t_info *info);
+int print_zero_char(t_info *info);
+int print_string(va_list ap, t_info *info);
+int print_nbr(va_list ap, t_info *info);
+int print_space_nbr(long long data, t_info *info);
+int print_zero_nbr(long long data, t_info *info);
 #endif
