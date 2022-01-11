@@ -37,22 +37,73 @@ int print_zero_nbr(long long data, t_info *info)
     return (info->zero_len);
 }
 
-int print_nbr(va_list ap, t_info *info)
+int nbr_len(long long data, int base, t_info *info)
 {
-    int data;
     int len;
 
-    if (info->type == '%')
-        data = '%';
+    len = 1;
+    if (data < 0)
+        data = -data;
+    if (data = 0 && info->dot && !info->precision)
+        return (0);
+    while (data >= base)
+    {
+        data /= base;
+        len++;
+    }
+    info->length = len;
+    return (len);
+}
+
+int print_nbr(va_list ap, t_info *info)
+{
+    long long data;
+    int len;
+
+    if (info->type == 'u')
+        data = va_arg(ap, unsigned int);
     else
         data = va_arg(ap, int);
-    info->length = 1;
-    len = 1;
+    len = nbr_len(data, 10, info);
     if (!info->minus)
-        len += print_space_char(info);
-    len += print_zero_char(info);
-    ft_putchar(data);
+        len += print_space_nbr(data, info);
+    if (data < 0)
+    {
+        ft_putchar('-');
+        len++;
+    }
+    len += print_zero_nbr(data, info);
+    ft_putnbr(data, 10, info);
     if (info->minus)
-        len += print_space_char(info);
+        len += print_space_nbr(data, info);
+    return (len);
+}
+
+int print_Hex_nbr(va_list ap, t_info *info)
+{
+    long long data;
+    int len;
+
+    if (info->type == 'p')
+        data = va_arg(ap, long long);
+    else
+        data = va_arg(ap, unsigned int);
+    len = nbr_len(data, 16, info);
+    if (!info->minus)
+        len += print_space_nbr(data, info);
+    if (data < 0)
+    {
+        ft_putchar('-');
+        len++;
+    }
+    if (info->type == 'p')
+    {
+        ft_putstr("0x", info);
+        len += 2;
+    }
+    len += print_zero_nbr(data, info);
+    ft_putnbr(data, 16, info);
+    if (info->minus)
+        len += print_space_nbr(data, info);
     return (len);
 }

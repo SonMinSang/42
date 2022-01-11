@@ -20,11 +20,26 @@ typedef struct s_info
     int zero_len;
 } t_info;
 
+int ft_printf(const char *format, ...);
+void init_info(t_info *info);
+int print(va_list ap, t_info *info);
 int print_char(va_list ap, t_info *info);
 int print_space_char(t_info *info);
 int print_zero_char(t_info *info);
 int print_string(va_list ap, t_info *info);
 int print_nbr(va_list ap, t_info *info);
+int print_Hex_nbr(va_list ap, t_info *info);
 int print_space_nbr(long long data, t_info *info);
 int print_zero_nbr(long long data, t_info *info);
+int nbr_len(long long data, int base, t_info *info);
+int parsing(char *str, t_info *info, va_list ap);
+int parse_flag(char *str, int i, t_info *info);
+int parse_width(char *str, int i, t_info *info);
+int parse_prec(char *str, int i, t_info *info);
+int parse_type(char *str, int i, t_info *info);
+void ft_putchar(char c);
+void ft_putstr(char *str, t_info *info);
+void ft_putnbr(long long data, int base, t_info *info);
+int ft_strlen(char *str, t_info *info);
+int ft_isdigit(int c);
 #endif
