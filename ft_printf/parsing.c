@@ -7,6 +7,10 @@ void init_info(t_info *info)
     info->width = 0;
     info->precision = 0;
     info->type = 0;
+    info->sign = 0;
+    info->length = 0;
+    info->space_len = 0;
+    info->zero_len = 0;
 }
 
 int check_print(va_list ap, t_info *info, char type)
@@ -160,13 +164,13 @@ void parsing(char *str, t_info *info, va_list ap)
     {
         if (str[i] == '%')
         {
+            init_info(info);
             i++;
             i = parse_flag(str, i, info);
             i = parse_width(str, i, info);
             i = parse_prec(str, i, info);
             i = parse_spec(str, i, info);
             print(ap, info);
-            init_info(info);
         }
         else
         {
