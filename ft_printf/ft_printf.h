@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
-#include <stdio.h>
 
 typedef struct s_info
 {
