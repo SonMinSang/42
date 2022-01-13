@@ -6,6 +6,7 @@ int print_string(va_list ap, t_info *info)
     int len;
 
     data = va_arg(ap, char *);
+    printf("%s", data);
     if (!data)
         data = "(null)";
     info->length = ft_strlen(data, info);

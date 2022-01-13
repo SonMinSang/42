@@ -44,7 +44,7 @@ int nbr_len(long long data, int base, t_info *info)
     len = 1;
     if (data < 0)
         data = -data;
-    if (data = 0 && info->dot && !info->precision)
+    if (data == 0 && info->dot && !info->precision)
         return (0);
     while (data >= base)
     {

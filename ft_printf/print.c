@@ -5,6 +5,7 @@ int print(va_list ap, t_info *info)
     int len;
 
     len = 0;
+    printf("%c", info->type);
     if (info->type == 'c' || info->type == '%')
         len = print_char(ap, info);
     else if (info->type == 's')

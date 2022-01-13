@@ -14,6 +14,7 @@
 
 void init_info(t_info *info)
 {
+	info->dot = 0;
 	info->minus = 0;
 	info->zero = 0;
 	info->width = 0;
@@ -30,9 +31,14 @@ int ft_printf(const char *format, ...)
 	va_list ap;
 	t_info *info;
 	int length;
+	char *str;
 
+	info = (t_info *)malloc(sizeof(t_info));
+	str = (char *)format;
 	va_start(ap, format);
-	length = parsing(ap, info, ap);
+
+	init_info(info);
+	length = parsing(str, info, ap);
 	va_end(ap);
 	return (length);
 }

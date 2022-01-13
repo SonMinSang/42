@@ -12,21 +12,19 @@ void ft_putstr(char *str, t_info *info)
     index = 0;
     if (!str)
         return;
-    if (info->type == 's')
+    if (info->type == 's' && info->dot && !info->precision)
+        return;
+    if (info->type == 's' && info->precision)
     {
-        if (info->dot && !info->precision)
-            return;
-        if (info->precision)
+        while (str[index] && index < info->precision)
         {
-            while (str[index] && index < info->precision)
-            {
-                ft_putchar(str[index]);
-                index++;
-            }
+            ft_putchar(str[index]);
+            index++;
         }
     }
     else
     {
+
         while (str[index])
         {
             ft_putchar(str[index]);
@@ -44,9 +42,9 @@ void ft_putnbr(long long data, int base, t_info *info)
     if (base == 10)
         base_num = "0123456789";
     else if (base == 16 && info->type == 'X')
-        base_num = "0123456789ABCDE";
+        base_num = "0123456789ABCDEF";
     else
-        base_num = "0123456789abcde";
+        base_num = "0123456789abcdef";
     if (data == 0 && info->dot && !info->precision) // printf("%5.0d",0);
         return;
     if (data >= base)

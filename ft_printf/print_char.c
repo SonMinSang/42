@@ -20,13 +20,17 @@ int print_space_char(t_info *info)
 int print_zero_char(t_info *info)
 {
     int zero;
+    int size;
 
     if (info->zero && !info->minus)
         info->zero_len = info->width - info->length;
     zero = info->zero_len;
     while (zero-- > 0)
+    {
         ft_putchar('0');
-    return (info->zero_len);
+        size++;
+    }
+    return (size);
 }
 
 int print_char(va_list ap, t_info *info)
@@ -46,5 +50,6 @@ int print_char(va_list ap, t_info *info)
     ft_putchar(data);
     if (info->minus)
         len += print_space_char(info);
+    printf("%d", len);
     return (len);
 }
