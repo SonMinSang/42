@@ -298,6 +298,5 @@ int main(int argc, char **argv)
     printf("%d\n", a->data);
     printf("b->data: %d\n", b->data);
     printf("b->next->data: %d\n", b->next->data);
-
     system("leaks a.exe");
 }
