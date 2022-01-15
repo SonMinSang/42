@@ -4,7 +4,7 @@ SRCS = ft_printf.c parsing.c print_char.c print_nbr.c print_string.c print.c uti
 
 OBJS = ${SRCS:%.c=%.o}
 
-FALGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 $(NAME):
 	gcc $(FLAGS) -c $(SRCS) -I ./
