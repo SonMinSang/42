@@ -6,7 +6,7 @@
 /*   By: mson <mson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:01:42 by mson              #+#    #+#             */
-/*   Updated: 2021/06/21 19:04:55 by mson             ###   ########.fr       */
+/*   Updated: 2022/01/14 02:51:20 by mson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int ft_printf(const char *format, ...)
 
 	init_info(info);
 	length = parsing(str, info, ap);
+	free(info);
 	va_end(ap);
 	return (length);
 }
