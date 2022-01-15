@@ -1,71 +1,36 @@
 #include "push_swap.h"
 
-int is_sorted(t_stack *a)
-{
-    if (!a)
-        exit(1);
-    while (a->next)
-    {
-        if (a->data > a->next->data)
-            return (0);
-        a = a->next;
-    }
-    return (1);
-}
-
-void sort_three(t_carrier *carrier, t_stack *a)
-{
-    if (!carrier || !a)
-        exit(1);
-    // 1 2 3
-    if (a->data < a->next->data && a->next->data < a->next->next->data)
-        return;
-    // 1 3 2
-    else if (a->next->next->data > a->data && a->next->data > a->next->next->data)
-    {
-        sa();
-        ra();
-    }
-    // 2 1 3
-    else if (a->data > a->next->data && a->next->next->data > a->data)
-        sa();
-    // 2 3 1
-    else if (a->next->data > a->data && a->data > a->next->next->data)
-        rra();
-    // 3 1 2
-    else if (a->data > a->next->next->data && a->data > a->next->next->data)
-        ra();
-    // 3 2 1
-    else if (a->data > a->next->data && a->next->next->data > a->data)
-    {
-        ra();
-        sa();
-    }
-    return;
-}
-
-int fill_stack(t_stack **a, int size, char **argv, t_carrier *carrier)
+// ?? node 추가 -> push 함수의 인자 ???
+void fill_stack(t_carrier *carrier, t_stack **a, int size, char **argv)
 {
     int data;
     char **array;
+    int arr_index;
+    int argv_index;
 
+    argv_index = 0;
     if (!argv)
-        return (0);
-    while (*argv)
+        return;
+    while (argv[argv_index])
     {
-        array = ft_split(*argv, " ");
+        arr_index = 0;
+        array = ft_split(argv[argv_index], ' ');
         if (!array)
-            error(carrier);
-        while (*array)
         {
-            data = ft_atoi(*array, carrier);
-            push(a, data, carrier);
-            *array++;
+            printf("array is null");
+            error(carrier);
         }
-        *argv++;
+        while (array[arr_index])
+        {
+            data = ft_atoi(array[arr_index], carrier);
+            init_pushed_stack(carrier, a, data);
+            arr_index++;
+        }
+        argv_index++;
         free_arr(array);
     }
-    isOverlap(a, carrier);
+    is_overlapped(carrier, a);
+    return;
 }
 
 void init_carrier(t_carrier *carrier)
@@ -79,17 +44,23 @@ void init_carrier(t_carrier *carrier)
     carrier->error = 0;
 }
 
-int main(int argc, char **argv)
-{
-    t_carrier carrier;
-    t_stack *a;
-    t_stack *b;
+//채워진 a스택을 정렬하는 로직을 담은 함수
+// void    push_swap(t_carrier *carrier, t_stack *a, t_stack *b)
+//{
 
-    a = 0;
-    b = 0;
-    if (argc < 2)
-        exit(0);
-    init_carrier(&carrier);
-    fill_stack(&a, argc - 1, &argv[1], &carrier);
-    push_swap(a, b);
-}
+//}
+// int		main(int argc, char **argv)
+// {
+//     t_carrier carrier;
+//     t_stack *a;
+//     t_stack *b;
+
+//     a = 0;
+//     b = 0;
+//     if (argc < 2)
+//         exit(0);
+//     init_carrier(&carrier);
+//     fill_stack(&a, argc - 1, &argv[1], &carrier);
+//     push_swap(carrier, a, b);
+
+// }

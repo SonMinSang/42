@@ -1,5 +1,6 @@
 #include "push_swap.h"
 
+//모든 노드를 순회하며 노드 free
 void free_stack(t_stack **stack)
 {
     t_stack *temp;
@@ -8,7 +9,7 @@ void free_stack(t_stack **stack)
     if (*stack == 0)
         return;
     temp = *stack;
-    while (temp != 0)
+    while (temp)
     {
         next = temp->next;
         free(temp);
@@ -16,16 +17,19 @@ void free_stack(t_stack **stack)
     }
 }
 
-void free_arr(char **array)
+// array freea 함수
+void free_arr(char **arr)
 {
-    int index;
+    int i;
 
-    index = 0;
-    if (array != 0)
+    i = 0;
+    if (arr)
     {
-        while (array[index])
-            free(array[index]);
-        free(array[index]);
-        free(array);
+        while (arr[i])
+        {
+            free(arr[i]);
+            i++;
+        }
+        free(arr);
     }
 }

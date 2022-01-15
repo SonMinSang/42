@@ -30,7 +30,7 @@ int ft_atoi(char *str, t_carrier *carrier)
 		if (ouflow(number, minus) != 1)
 			error(carrier);
 	}
-	if (*str < '0' || *str > '9')
+	if (*str && (*str < '0' || *str > '9'))
 		error(carrier);
 	return (minus * number);
 }

@@ -79,7 +79,7 @@ int parsing(char *str, t_info *info, va_list ap)
             i = parse_width(str, i, info);
             i = parse_prec(str, i, info);
             i = parse_type(str, i, info);
-            printf("%d", info->dot);
+           
             size += print(ap, info);
         }
         else
