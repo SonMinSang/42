@@ -16,7 +16,7 @@ int	ptr_len(unsigned long long data, unsigned long long base, t_info *info)
 {
 	int		len;
 
-	len = 1;
+	len = 3;
 
 	if (data == 0 && info->dot && !info->precision)
 		return (0);
@@ -31,6 +31,7 @@ int	ptr_len(unsigned long long data, unsigned long long base, t_info *info)
 void	print_Hex_ptr(va_list ap, t_info *info)
 {
 	unsigned long long	data;
+
 	data = va_arg(ap, unsigned long long);
 	info->length = ptr_len(data, 16, info);
 	if (!info->minus)
