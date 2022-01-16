@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void	ft_putptr(unsigned long long data, int base, t_info *info)
+void	ft_putptr(unsigned long long data, unsigned long long base, t_info *info)
 {
 	char	*base_num;
 
@@ -12,7 +12,7 @@ void	ft_putptr(unsigned long long data, int base, t_info *info)
 	ft_putchar(base_num[data % base], info);
 }
 
-int	ptr_len(unsigned long long data, int base, t_info *info)
+int	ptr_len(unsigned long long data, unsigned long long base, t_info *info)
 {
 	int		len;
 
