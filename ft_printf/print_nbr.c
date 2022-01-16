@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_nbr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mson <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/16 20:39:11 by mson              #+#    #+#             */
+/*   Updated: 2022/01/16 20:39:14 by mson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	print_space_nbr(long long data, t_info *info)
@@ -34,9 +46,9 @@ void	print_zero_nbr(long long data, t_info *info)
 		ft_putchar('0', info);
 }
 
-int nbr_len(long long data, int base, t_info *info)
+int	nbr_len(long long data, int base, t_info *info)
 {
-	int len;
+	int		len;
 
 	len = 1;
 	if (data < 0)

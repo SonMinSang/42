@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mson <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/16 20:38:30 by mson              #+#    #+#             */
+/*   Updated: 2022/01/16 20:39:46 by mson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int parse_flag(char *str, int i, t_info *info)
+int	parse_flag(char *str, int i, t_info *info)
 {
 	while (str[i] == '-' || str[i] == '0')
 	{
@@ -15,7 +27,7 @@ int parse_flag(char *str, int i, t_info *info)
 	return (i);
 }
 
-int parse_width(char *str, int i, t_info *info)
+int	parse_width(char *str, int i, t_info *info)
 {
 	while (ft_isdigit(str[i]))
 	{
@@ -25,7 +37,7 @@ int parse_width(char *str, int i, t_info *info)
 	return (i);
 }
 
-int parse_prec(char *str, int i, t_info *info)
+int	parse_prec(char *str, int i, t_info *info)
 {
 	if (str[i] == '.')
 	{
@@ -40,7 +52,7 @@ int parse_prec(char *str, int i, t_info *info)
 	return (i);
 }
 
-int parse_type(char *str, int i, t_info *info)
+int	parse_type(char *str, int i, t_info *info)
 {
 	char	*type;
 	int		index;
@@ -59,10 +71,9 @@ int parse_type(char *str, int i, t_info *info)
 	return (-1);
 }
 
-int parsing(char *str, t_info *info, va_list ap)
+int	parsing(char *str, t_info *info, va_list ap)
 {
-	int i;
-	int size;
+	int		i;
 
 	i = 0;
 	while (str[i])

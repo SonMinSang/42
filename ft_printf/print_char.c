@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_char.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mson <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/16 20:38:48 by mson              #+#    #+#             */
+/*   Updated: 2022/01/16 20:41:34 by mson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	print_space_char(t_info *info)
@@ -5,9 +17,10 @@ void	print_space_char(t_info *info)
 	int		space;
 
 	if (info->zero && !info->minus && !info->dot && !info->precision)
-		return (0);
-	if (info->type == '%' && info->zero && !info->minus && info->width && info->dot)
-		return (0);
+		return ;
+	if (info->type == '%' && info->zero
+		&& !info->minus && info->width && info->dot)
+		return ;
 	if (info->precision && info->precision < info->length)
 		info->space_len = info->width - info->precision;
 	else
@@ -19,7 +32,7 @@ void	print_space_char(t_info *info)
 
 void	print_zero_char(t_info *info)
 {
-	int zero;
+	int		zero;
 
 	zero = 0;
 	if (info->zero && !info->minus)
