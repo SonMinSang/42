@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int print_space_nbr(long long data, t_info *info)
+void	print_space_nbr(long long data, t_info *info)
 {
 	int		space;
 
@@ -13,15 +13,11 @@ int print_space_nbr(long long data, t_info *info)
 	else
 		info->space_len = info->width - info->length;
 	space = 0;
-	while (space < info->space_len)
-	{	
-		ft_putchar(' ');
-		space++;
-	}
-	return (space);
+	while (space++ < info->space_len)
+		ft_putchar(' ', info);
 }
 
-int	print_zero_nbr(long long data, t_info *info)
+void	print_zero_nbr(long long data, t_info *info)
 {
 	int		zero;
 
@@ -34,12 +30,8 @@ int	print_zero_nbr(long long data, t_info *info)
 	else
 		info->zero_len = info->precision - info->length;
 	zero = 0;
-	while (zero < info->zero_len)
-	{
-		ft_putchar('0');
-		zero++;
-	}
-	return (zero);
+	while (zero++ < info->zero_len)
+		ft_putchar('0', info);
 }
 
 int nbr_len(long long data, int base, t_info *info)
@@ -56,59 +48,45 @@ int nbr_len(long long data, int base, t_info *info)
 		data /= base;
 		len++;
 	}
-	info->length = len;
 	return (len);
 }
 
-int	print_nbr(va_list ap, t_info *info)
+void	print_nbr(va_list ap, t_info *info)
 {
 	long long	data;
-    int			len;
 
 	if (info->type == 'u')
 		data = va_arg(ap, unsigned int);
 	else
 		data = va_arg(ap, int);
-	len = nbr_len(data, 10, info);
+	info->length = nbr_len(data, 10, info);
 	if (!info->minus)
-		len += print_space_nbr(data, info);
+		print_space_nbr(data, info);
 	if (data < 0)
-    {
-		ft_putchar('-');
-		len++;
-	}
-	len += print_zero_nbr(data, info);
+		ft_putchar('-', info);
+	print_zero_nbr(data, info);
 	ft_putnbr(data, 10, info);
 	if (info->minus)
-		len += print_space_nbr(data, info);
-	return (len);
+		print_space_nbr(data, info);
 }
 
-int	print_Hex_nbr(va_list ap, t_info *info)
+void	print_Hex_nbr(va_list ap, t_info *info)
 {
 	long long	data;
-    int			len;
 
 	if (info->type == 'p')
 		data = va_arg(ap, long long);
 	else
 		data = va_arg(ap, unsigned int);
-	len = nbr_len(data, 16, info);
+	info->length = nbr_len(data, 16, info);
 	if (!info->minus)
-		len += print_space_nbr(data, info);
+		print_space_nbr(data, info);
 	if (data < 0)
-	{
-		ft_putchar('-');
-		len++;
-	}
+		ft_putchar('-', info);
 	if (info->type == 'p')
-	{
 		ft_putstr("0x", info);
-		len += 2;
-	}
-	len += print_zero_nbr(data, info);
+	print_zero_nbr(data, info);
 	ft_putnbr(data, 16, info);
 	if (info->minus)
-		len += print_space_nbr(data, info);
-	return (len);
+		print_space_nbr(data, info);
 }

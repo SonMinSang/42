@@ -1,13 +1,14 @@
 #include "ft_printf.h"
 
-void	ft_putchar(char c)
+void ft_putchar(char c, t_info *info)
 {
-    write(1, &c, 1);
+	write(1, &c, 1);
+	info->size++;
 }
 
-void	ft_putstr(char *str, t_info *info)
+void ft_putstr(char *str, t_info *info)
 {
-    int		index;
+	int index;
 
 	index = 0;
 	if (!str)
@@ -18,7 +19,7 @@ void	ft_putstr(char *str, t_info *info)
 	{
 		while (str[index] && index < info->precision)
 		{
-			ft_putchar(str[index]);
+			ft_putchar(str[index], info);
 			index++;
 		}
 	}
@@ -26,15 +27,15 @@ void	ft_putstr(char *str, t_info *info)
 	{
 		while (str[index])
 		{
-			ft_putchar(str[index]);
+			ft_putchar(str[index], info);
 			index++;
 		}
 	}
 }
 
-void	ft_putnbr(long long data, int base, t_info *info)
+void ft_putnbr(long long data, int base, t_info *info)
 {
-	char	*base_num;
+	char *base_num;
 
 	if (data < 0)
 		data = -data;
@@ -48,12 +49,12 @@ void	ft_putnbr(long long data, int base, t_info *info)
 		return;
 	if (data >= base)
 		ft_putnbr((data / base), base, info);
-	ft_putchar(base_num[data % base]);
+	ft_putchar(base_num[data % base], info);
 }
 
-int	ft_strlen(char *str, t_info *info)
+int ft_strlen(char *str, t_info *info)
 {
-	int		size;
+	int size;
 
 	size = 0;
 	if (!str)
@@ -61,7 +62,7 @@ int	ft_strlen(char *str, t_info *info)
 	if (info->dot && !info->precision) // printf("%.0s","Hello World");
 		return (0);
 	if (info->precision)
-	{	
+	{
 		while (str[size] && size < info->precision)
 			size++;
 	}
@@ -73,7 +74,7 @@ int	ft_strlen(char *str, t_info *info)
 	return (size);
 }
 
-int	ft_isdigit(int c)
+int ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);

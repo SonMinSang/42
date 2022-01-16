@@ -38,6 +38,7 @@ int ft_printf(const char *format, ...)
 	va_start(ap, format);
 
 	init_info(info);
+	info->size = 0;
 	length = parsing(str, info, ap);
 	free(info);
 	va_end(ap);

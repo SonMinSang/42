@@ -42,17 +42,19 @@ int parse_prec(char *str, int i, t_info *info)
 
 int parse_type(char *str, int i, t_info *info)
 {
-	char *type;
+	char	*type;
+	int		index;
 
 	type = "cspdiuxX%";
-	while (*type)
+	index = 0;
+	while (index < 10)
 	{
-		if (*type == str[i])
+		if (type[index] == str[i])
 		{
 			info->type = str[i];
 			return (++i);
 		}
-		*type++;
+		index++;
 	}
 	return (-1);
 }
@@ -63,7 +65,6 @@ int parsing(char *str, t_info *info, va_list ap)
 	int size;
 
 	i = 0;
-	size = 0;
 	while (str[i])
 	{
 		if (str[i] == '%')
@@ -74,16 +75,15 @@ int parsing(char *str, t_info *info, va_list ap)
 			i = parse_width(str, i, info);
 			i = parse_prec(str, i, info);
 			i = parse_type(str, i, info);
-			size += print(ap, info);
+			print(ap, info);
 		}
 		else
 		{
-			ft_putchar(str[i]);
+			ft_putchar(str[i], info);
 			i++;
-			size++;
 		}
 	}
 	if (i == -1)
 		return (-1);
-	return (size);
+	return (info->size);
 }

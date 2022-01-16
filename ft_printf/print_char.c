@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int	print_space_char(t_info *info)
+void	print_space_char(t_info *info)
 {
 	int		space;
 
@@ -13,45 +13,34 @@ int	print_space_char(t_info *info)
 	else
 		info->space_len = info->width - info->length;
 	space = 0;
-	while (space < info->space_len)
-	{	
-		ft_putchar(' ');
-		space++;
-	}
-	return (space);
+	while (space++ < info->space_len)
+		ft_putchar(' ', info);
 }
 
-int	print_zero_char(t_info *info)
+void	print_zero_char(t_info *info)
 {
-	int		zero;
+	int zero;
 
+	zero = 0;
 	if (info->zero && !info->minus)
 		info->zero_len = info->width - info->length;
-	zero = 0;
-	while (zero < info->zero_len)
-	{	
-		ft_putchar('0');
-		zero++;
-	}
-	return (zero);
+	while (zero++ < info->zero_len)
+		ft_putchar('0', info);
 }
 
-int	print_char(va_list ap, t_info *info)
+void	print_char(va_list ap, t_info *info)
 {
 	int		data;
-	int		len;
 
 	if (info->type == '%')
 		data = '%';
 	else
 		data = va_arg(ap, int);
 	info->length = 1;
-	len = 1;
 	if (!info->minus)
-		len += print_space_char(info);
-	len += print_zero_char(info);
-	ft_putchar(data);
+		print_space_char(info);
+	print_zero_char(info);
+	ft_putchar(data, info);
 	if (info->minus)
-		len += print_space_char(info);
-	return (len);
+		print_space_char(info);
 }
