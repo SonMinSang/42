@@ -42,4 +42,7 @@ void    ft_putstr(char *str, t_info *info);
 void    ft_putnbr(long long data, int base, t_info *info);
 int     ft_strlen(char *str, t_info *info);
 int     ft_isdigit(int c);
+void	ft_putptr(unsigned long long data, int base, t_info *info);
+int	    ptr_len(unsigned long long data, int base, t_info *info);
+void	print_Hex_ptr(va_list ap, t_info *info);
 #endif

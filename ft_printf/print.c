@@ -18,8 +18,10 @@ void	print(va_list ap, t_info *info)
 		print_char(ap, info);
 	else if (info->type == 's')
 		print_string(ap, info);
-	else if (info->type == 'X' || info->type == 'x' || info->type == 'p')
+	else if (info->type == 'X' || info->type == 'x')
 		print_Hex_nbr(ap, info);
+	else if (info->type == 'p')
+		print_Hex_ptr(ap, info);
 	else
 		print_nbr(ap, info);
 }
