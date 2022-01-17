@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
 //에러 출력 함수. 에러 시 carrier->error 멤버 값 == 1
-void error(t_carrier *carrier)
+void        error(t_carrier *carrier)
 {
     if (!carrier)
         exit(1);
@@ -13,7 +13,7 @@ void error(t_carrier *carrier)
 }
 
 // A스택 내부에 중복 숫자 여부를 확인하는 함수
-void is_overlapped(t_carrier *carrier, t_stack **a)
+void        is_overlapped(t_carrier *carrier, t_stack **a)
 {
     t_stack *temp;
     t_stack *comp;
@@ -28,7 +28,7 @@ void is_overlapped(t_carrier *carrier, t_stack **a)
             {
                 error(carrier);
                 printf("is overlapped!\n");
-                return;
+                return ;
             }
             comp = comp->next;
         }
@@ -37,7 +37,7 @@ void is_overlapped(t_carrier *carrier, t_stack **a)
 }
 
 // ??? 스택에 푸시했을때 정보를 바꿔주는 함수 ?
-void init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
+void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
 {
     t_stack *temp;
     t_stack *tail;
@@ -45,7 +45,7 @@ void init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
     temp = (t_stack *)malloc(sizeof(t_stack));
     if (!temp)
     {
-        printf("mallocation of temp failed\n");
+        printf("mallocation of temp failed\n");     
         error(carrier);
     }
     temp->data = data;
@@ -58,35 +58,32 @@ void init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
     carrier->ac_cnt++;
     carrier->a_cnt++;
     //빈 스택이 들어오는 경우
-
+   
     if (*stack == 0)
     {
         *stack = temp;
         (*stack)->prev = *stack;
-
-        return;
+        return ;
     }
     tail = (*stack)->prev;
-    tail->next = 0;
-
-    //새로 들어온 노드를 기존 노드의 다음 노드로 연결
     temp->next = 0;
     tail->next = temp;
+    //새로 들어온 노드를 기존 노드의 다음 노드로 연결
     temp->prev = tail;
-
     (*stack)->prev = temp;
 }
 
+
 //스택에서 head노드를 꺼내고 반환하는 함수
-int pop(t_stack **stack)
+int     pop(t_stack **stack)
 {
     t_stack *pop;
-    int data;
-
+    int     data;
+    
     if (!stack)
         exit(1);
     pop = *stack;
-    // headNext를 head로 바꿔주는 과정
+    //headNext를 head로 바꿔주는 과정
     if ((*stack)->next)
     {
         (*stack)->next->prev = (*stack)->prev;
@@ -98,10 +95,10 @@ int pop(t_stack **stack)
 }
 
 //매개변수 node : 스택에 새로 집어넣을 노드
-void push(t_stack **stack, int data)
+void    push(t_stack **stack, int data)
 {
     t_stack *newNode;
-
+    
     newNode = (t_stack *)malloc(sizeof(t_stack));
     newNode->data = data;
     // ??? 스택이 비어있을 경우
@@ -119,11 +116,11 @@ void push(t_stack **stack, int data)
     }
 }
 
-int find_max(t_carrier *carrier, t_stack **stack)
+int    find_max(t_carrier *carrier, t_stack **stack)
 {
-    t_stack *curr;
-    int max;
-
+    t_stack     *curr;
+    int         max;
+    
     if (!carrier || !stack)
         exit(1);
     curr = *stack;
@@ -136,42 +133,26 @@ int find_max(t_carrier *carrier, t_stack **stack)
         curr = curr->next;
     }
     carrier->max = max;
-    return (max);
+    return (max); 
 }
 
-int find_min(t_carrier *carrier, t_stack **stack)
+int    find_min(t_carrier *carrier, t_stack **stack)
 {
-    t_stack *curr;
-    int min;
-
+    t_stack     *curr;
+    int         min;
+    
     if (!carrier || !stack)
         exit(1);
     curr = *stack;
     min = curr->data;
     // 이 부분!!!!!!!!!!
     while (curr)
-    {
+    {   
         printf("%d\n", curr->data);
         if (min > curr->data)
             min = curr->data;
         curr = curr->next;
     }
     carrier->min = min;
-    return (min);
-}
-
-int find_pivot(t_carrier *carrier, t_stack **stack)
-{
-    int pivot;
-    int max;
-    int min;
-
-    if (!carrier || !stack)
-        exit(1);
-    max = find_max(carrier, stack);
-    min = find_min(carrier, stack);
-    pivot = (max + min) / 2;
-    carrier->pivot = pivot;
-
-    return (pivot);
+    return (min); 
 }
