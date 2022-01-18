@@ -6,7 +6,7 @@
 /*   By: mson <mson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:01:42 by mson              #+#    #+#             */
-/*   Updated: 2022/01/18 23:34:49 by mson             ###   ########.fr       */
+/*   Updated: 2022/01/19 00:32:00 by mson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_info(t_info *info)
 	info->width = 0;
 	info->precision = 0;
 	info->type = 0;
-	info->sign = 0;
 	info->length = 0;
 	info->space_len = 0;
 	info->zero_len = 0;

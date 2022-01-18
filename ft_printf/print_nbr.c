@@ -6,7 +6,7 @@
 /*   By: mson <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 20:39:11 by mson              #+#    #+#             */
-/*   Updated: 2022/01/18 23:45:48 by mson             ###   ########.fr       */
+/*   Updated: 2022/01/19 00:31:08 by mson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_space_nbr(long long data, t_info *info)
 		info->space_len -= 2;
 	if ((info->type == 'x' || info->type == 'X') && info->sharp == 1)
 		info->space_len--;
-	if (info->plus || (info->space && data > 0))
+	if ((info->plus && data >= 0) || (info->space && data > 0))
 		info->space_len--;
 	if (info->zero && !info->dot && !info->precision)
 		info->space_len -= info->width - info->length;
@@ -78,9 +78,9 @@ void	print_nbr(va_list ap, t_info *info)
 	else
 		data = va_arg(ap, int);
 	info->length = nbr_len(data, 10, info);
-	if (data > 0 && info->plus)
+	if (data >= 0 && info->plus)
 		ft_putchar('+', info);
-	if (!info->plus && info->space)
+	if (!info->plus && info->space && data >= 0)
 		ft_putchar(' ', info);
 	if (!info->minus)
 		print_space_nbr(data, info);
@@ -100,7 +100,7 @@ void	print_Hex_nbr(va_list ap, t_info *info)
 	info->length = nbr_len(data, 16, info);
 	if (!info->minus)
 		print_space_nbr(data, info);
-	if (info->sharp)
+	if (info->sharp && data != 0)
 	{
 		if (info->type == 'X')
 			ft_putstr("0X", info);

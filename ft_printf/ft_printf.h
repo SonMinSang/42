@@ -12,7 +12,6 @@ typedef struct s_info
 	int		width;
 	int		precision;
 	char	type;
-	int		sign;
 	int		length;
 	int		space_len;
 	int		zero_len;
