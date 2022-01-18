@@ -6,7 +6,7 @@
 /*   By: mson <mson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:01:42 by mson              #+#    #+#             */
-/*   Updated: 2022/01/16 20:37:57 by mson             ###   ########.fr       */
+/*   Updated: 2022/01/18 23:34:49 by mson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	init_info(t_info *info)
 	info->length = 0;
 	info->space_len = 0;
 	info->zero_len = 0;
+	info->space = 0;
+	info->plus = 0;
+	info->sharp = 0;
 }
 
 int	ft_printf(const char *format, ...)

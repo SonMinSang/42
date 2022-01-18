@@ -6,7 +6,7 @@
 /*   By: mson <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 20:38:30 by mson              #+#    #+#             */
-/*   Updated: 2022/01/16 20:39:46 by mson             ###   ########.fr       */
+/*   Updated: 2022/01/18 23:33:24 by mson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 int	parse_flag(char *str, int i, t_info *info)
 {
-	while (str[i] == '-' || str[i] == '0')
+	while (str[i] == '-' || str[i] == '0' || str[i] == ' ' || str[i] == '#' || str[i] == '+')
 	{
 		if (str[i] == '-')
 			info->minus = 1;
 		if (str[i] == '0')
 			info->zero = 1;
+		if (str[i] == ' ')
+			info->space = 1;
+		if (str[i] == '#')
+			info->sharp = 1;
+		if (str[i] == '+')
+			info->plus = 1;
 		i++;
 	}
 	if (info->minus && info->zero)

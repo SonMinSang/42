@@ -17,6 +17,9 @@ typedef struct s_info
 	int		space_len;
 	int		zero_len;
 	int		size;
+	int		space;
+	int		plus;
+	int		sharp;
 }	t_info;
 
 int		ft_printf(const char *format, ...);

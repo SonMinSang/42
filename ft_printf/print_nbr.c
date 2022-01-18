@@ -6,7 +6,7 @@
 /*   By: mson <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 20:39:11 by mson              #+#    #+#             */
-/*   Updated: 2022/01/16 20:39:14 by mson             ###   ########.fr       */
+/*   Updated: 2022/01/18 23:45:48 by mson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@ void	print_space_nbr(long long data, t_info *info)
 {
 	int		space;
 
-	if (data < 0)
-		info->space_len--;
-	if (info->type == 'p')
-		info->space_len -= 2;
 	if (info->precision > info->length)
 		info->space_len = info->width - info->precision;
 	else
 		info->space_len = info->width - info->length;
+	if (data < 0)
+		info->space_len--;
+	if (info->type == 'p')
+		info->space_len -= 2;
+	if (info->zero && !info->dot && !info->precision)
+		info->space_len -= info->width - info->length;
 	space = 0;
 	while (space++ < info->space_len)
 		ft_putchar(' ', info);
