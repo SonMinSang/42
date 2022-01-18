@@ -6,7 +6,7 @@
 /*   By: mson <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 20:39:26 by mson              #+#    #+#             */
-/*   Updated: 2022/01/16 20:39:29 by mson             ###   ########.fr       */
+/*   Updated: 2022/01/18 17:00:40 by mson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_putnbr(long long data, int base, t_info *info)
 		base_num = "0123456789ABCDEF";
 	else
 		base_num = "0123456789abcdef";
-	if (data == 0 && info->dot && !info->precision) // printf("%5.0d",0);
+	if (data == 0 && info->dot && !info->precision)
 		return ;
 	if (data >= base)
 		ft_putnbr((data / base), base, info);
@@ -71,7 +71,7 @@ int	ft_strlen(char *str, t_info *info)
 	size = 0;
 	if (!str)
 		return (0);
-	if (info->dot && !info->precision) // printf("%.0s","Hello World");
+	if (info->dot && !info->precision)
 		return (0);
 	if (info->precision)
 	{
