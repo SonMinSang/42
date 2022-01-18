@@ -29,7 +29,7 @@ int	ptr_len(unsigned long long data, unsigned long long base, t_info *info)
 {
 	int		len;
 
-	len = 3;
+	len = 1;
 	if (data == 0 && info->dot && !info->precision)
 		return (0);
 	while (data >= base)
