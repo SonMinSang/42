@@ -24,6 +24,10 @@ void	print_space_nbr(long long data, t_info *info)
 		info->space_len--;
 	if (info->type == 'p')
 		info->space_len -= 2;
+	if ((info->type == 'x' || info->type == 'X') && info->sharp == 1)
+		info->space_len--;
+	if (info->plus || (info->space && data > 0))
+		info->space_len--;
 	if (info->zero && !info->dot && !info->precision)
 		info->space_len -= info->width - info->length;
 	space = 0;
@@ -74,6 +78,10 @@ void	print_nbr(va_list ap, t_info *info)
 	else
 		data = va_arg(ap, int);
 	info->length = nbr_len(data, 10, info);
+	if (data > 0 && info->plus)
+		ft_putchar('+', info);
+	if (!info->plus && info->space)
+		ft_putchar(' ', info);
 	if (!info->minus)
 		print_space_nbr(data, info);
 	if (data < 0)
@@ -92,6 +100,13 @@ void	print_Hex_nbr(va_list ap, t_info *info)
 	info->length = nbr_len(data, 16, info);
 	if (!info->minus)
 		print_space_nbr(data, info);
+	if (info->sharp)
+	{
+		if (info->type == 'X')
+			ft_putstr("0X", info);
+		else
+			ft_putstr("0x", info);
+	}
 	if (data < 0)
 		ft_putchar('-', info);
 	print_zero_nbr(data, info);
