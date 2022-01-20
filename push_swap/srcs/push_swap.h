@@ -13,20 +13,22 @@ typedef struct		s_stack
 
 typedef struct s_carrier
 {
-	int		ac_cnt;
-	int 	min;
-	int		max;
-	int		pivot;
-	int		a_cnt;
-	int		b_cnt;
-	int		error;
-	int		arem_cnt; //짜투리 개수
-	int		brem_cnt;
-	int		pa_num;	//pa로 a스택으로 넘어가는 숫자 개수
-	int		pb_num; //pb로 b스택으로 넘어가는 숫자 개수
-	struct t_stack *a_remnant;  // 스택 b로 넘어가는 스택 a의 짜투리
-	struct t_stack *b_remnant;	// 스택 a로 넘어가는 스택 b의 짜투리
-}			t_carrier;
+	int				ac_cnt;
+	int 			min;
+	int				max;
+	int				pivot;
+	int				a_cnt;
+	int				b_cnt;
+	int				error;
+	int				arem_cnt; // 미정렬된 남은 개수
+	int				brem_cnt; // 미정렬된 남은 개수
+	int				pa_num;	//pa로 a스택으로 넘어가는 숫자 개수
+	int				pb_num; //pb로 b스택으로 넘어가는 숫자 개수
+	int				rra_num; //rra되는 숫자 개수
+	int				rrb_num;
+	t_stack			*a_remnant;  // 스택 b로 넘어가는 스택 a의 짜투리
+	t_stack			*b_remnant;	// 스택 a로 넘어가는 스택 b의 짜투리
+}					t_carrier;
 
 
 
@@ -75,8 +77,8 @@ void        is_overlapped(t_carrier *carrier, t_stack **a);
 void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data);
 int   		pop(t_stack **stack);
 void 		push(t_stack **stack, int data);
-int    		find_max(t_carrier *carrier, t_stack **stack);
-int    		find_min(t_carrier *carrier, t_stack **stack);
+int			find_max(t_carrier *carrier, t_stack **stack, char c);
+int    		find_min(t_carrier *carrier, t_stack **stack, char c);
 
 
 /*****************************************************/
@@ -89,6 +91,7 @@ void    sort_descending(t_carrier *carrier, t_stack **a, t_stack **b);
 int			is_sorted(t_stack *a);
 void		sort_three(t_carrier *carrier, t_stack **a);
 void		sort_five(t_carrier *carrier, t_stack **a, t_stack **b);
+void    sort_many(t_carrier *carrier, t_stack **a, t_stack **b);
 
 
 /*****************************************************/
@@ -97,6 +100,21 @@ void		sort_five(t_carrier *carrier, t_stack **a, t_stack **b);
 
 void	a_to_b(t_carrier *carrier, t_stack **a, t_stack **b);
 void	b_to_a(t_carrier *carrier, t_stack **a, t_stack **b);
+int		find_pivot(t_stack **stack, int count);
+
+/*****************************************************/
+/**                 logic_utils.c                   **/
+/*****************************************************/
+
+void	pivoting_a(t_carrier *carrier, t_stack **a, t_stack **b, int pivot);
+void	pivoting_b(t_carrier *carrier, t_stack **a, t_stack **b, int pivot);
+void	attach_unsorted(t_carrier *carrier, t_stack **a, t_stack **b, char c);
+void	handle_one_two_a(t_carrier *carrier, t_stack **a, t_stack **b);
+void	handle_one_two_b(t_carrier *carrier, t_stack **a, t_stack **b);
+
+
+
+
 
 /*****************************************************/
 /**                      free.c                     **/
@@ -110,4 +128,5 @@ void		free_arr(char **arr);
 /**                     debug.c                     **/
 /*****************************************************/
 void		print_stack(t_carrier *carrier, t_stack *stack);
+void		debug(t_carrier *carrier, t_stack **a, t_stack **b);
 #endif
