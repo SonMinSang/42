@@ -13,20 +13,22 @@ typedef struct		s_stack
 
 typedef struct s_carrier
 {
-	int		ac_cnt;
-	int 	min;
-	int		max;
-	int		pivot;
-	int		a_cnt;
-	int		b_cnt;
-	int		error;
-	int		arem_cnt; //Â¥Åõ¸® °³¼ö
-	int		brem_cnt;
-	int		pa_num;	//pa·Î a½ºÅÃÀ¸·Î ³Ñ¾î°¡´Â ¼ıÀÚ °³¼ö
-	int		pb_num; //pb·Î b½ºÅÃÀ¸·Î ³Ñ¾î°¡´Â ¼ıÀÚ °³¼ö
-	struct t_stack *a_remnant;  // ½ºÅÃ b·Î ³Ñ¾î°¡´Â ½ºÅÃ aÀÇ Â¥Åõ¸®
-	struct t_stack *b_remnant;	// ½ºÅÃ a·Î ³Ñ¾î°¡´Â ½ºÅÃ bÀÇ Â¥Åõ¸®
-}			t_carrier;
+	int				ac_cnt;
+	int 			min;
+	int				max;
+	int				pivot;
+	int				a_cnt;
+	int				b_cnt;
+	int				error;
+	int				arem_cnt; // ë¯¸ì •ë ¬ëœ ë‚¨ì€ ê°œìˆ˜
+	int				brem_cnt; // ë¯¸ì •ë ¬ëœ ë‚¨ì€ ê°œìˆ˜
+	int				pa_num;	//paë¡œ aìŠ¤íƒìœ¼ë¡œ ë„˜ì–´ê°€ëŠ” ìˆ«ì ê°œìˆ˜
+	int				pb_num; //pbë¡œ bìŠ¤íƒìœ¼ë¡œ ë„˜ì–´ê°€ëŠ” ìˆ«ì ê°œìˆ˜
+	int				rra_num; //rraë˜ëŠ” ìˆ«ì ê°œìˆ˜
+	int				rrb_num;
+	t_stack			*a_remnant;  // ìŠ¤íƒ bë¡œ ë„˜ì–´ê°€ëŠ” ìŠ¤íƒ aì˜ ì§œíˆ¬ë¦¬
+	t_stack			*b_remnant;	// ìŠ¤íƒ aë¡œ ë„˜ì–´ê°€ëŠ” ìŠ¤íƒ bì˜ ì§œíˆ¬ë¦¬
+}					t_carrier;
 
 
 
@@ -75,8 +77,8 @@ void        is_overlapped(t_carrier *carrier, t_stack **a);
 void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data);
 int   		pop(t_stack **stack);
 void 		push(t_stack **stack, int data);
-int    		find_max(t_carrier *carrier, t_stack **stack);
-int    		find_min(t_carrier *carrier, t_stack **stack);
+int			find_max(t_carrier *carrier, t_stack **stack, char c);
+int    		find_min(t_carrier *carrier, t_stack **stack, char c);
 
 
 /*****************************************************/
@@ -89,6 +91,7 @@ void    sort_descending(t_carrier *carrier, t_stack **a, t_stack **b);
 int			is_sorted(t_stack *a);
 void		sort_three(t_carrier *carrier, t_stack **a);
 void		sort_five(t_carrier *carrier, t_stack **a, t_stack **b);
+void    sort_many(t_carrier *carrier, t_stack **a, t_stack **b);
 
 
 /*****************************************************/
@@ -97,6 +100,21 @@ void		sort_five(t_carrier *carrier, t_stack **a, t_stack **b);
 
 void	a_to_b(t_carrier *carrier, t_stack **a, t_stack **b);
 void	b_to_a(t_carrier *carrier, t_stack **a, t_stack **b);
+int		find_pivot(t_stack **stack, int count);
+
+/*****************************************************/
+/**                 logic_utils.c                   **/
+/*****************************************************/
+
+void	pivoting_a(t_carrier *carrier, t_stack **a, t_stack **b, int pivot);
+void	pivoting_b(t_carrier *carrier, t_stack **a, t_stack **b, int pivot);
+void	attach_unsorted(t_carrier *carrier, t_stack **a, t_stack **b, char c);
+void	handle_one_two_a(t_carrier *carrier, t_stack **a, t_stack **b);
+void	handle_one_two_b(t_carrier *carrier, t_stack **a, t_stack **b);
+
+
+
+
 
 /*****************************************************/
 /**                      free.c                     **/
@@ -110,4 +128,5 @@ void		free_arr(char **arr);
 /**                     debug.c                     **/
 /*****************************************************/
 void		print_stack(t_carrier *carrier, t_stack *stack);
+void		debug(t_carrier *carrier, t_stack **a, t_stack **b);
 #endif

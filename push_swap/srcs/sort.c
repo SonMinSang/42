@@ -66,9 +66,9 @@ void    sort_descending(t_carrier *carrier, t_stack **a, t_stack **b)
     
     if (!carrier || !a)
         return ;
-        //Ã¹ pb
+        //ì²« pb
     pb(carrier, a, b);
-        //a½ºÅÃÀÌ ºñ¿öÁú¶§±îÁö pb rb
+        //aìŠ¤íƒì´ ë¹„ì›Œì§ˆë•Œê¹Œì§€ pb rb
     i = carrier->ac_cnt;
     while (--i)
     {
@@ -77,9 +77,9 @@ void    sort_descending(t_carrier *carrier, t_stack **a, t_stack **b)
     }
     while (i++ < carrier->ac_cnt)
         pa(carrier, a, b);
-        //b½ºÅÃÀÌ ºñ¿öÁú¶§±îÁö pa
+        //bìŠ¤íƒì´ ë¹„ì›Œì§ˆë•Œê¹Œì§€ pa
 }
-// ½ºÅÃ a¿¡¼­ 5°³ ¼ýÀÚ ¿À¸§Â÷¼ø Á¤·Ä
+// ìŠ¤íƒ aì—ì„œ 5ê°œ ìˆ«ìž ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
 void	sort_five(t_carrier *carrier, t_stack **a, t_stack **b)
 {
     int max;
@@ -111,25 +111,20 @@ void	sort_five(t_carrier *carrier, t_stack **a, t_stack **b)
 
 void    sort_many(t_carrier *carrier, t_stack **a, t_stack **b)
 {
+    printf("[sort many] in\n");
     if (!carrier || !a)
         return ;
     if (is_sorted(*a))
         return ;
     if (is_descending(carrier, *a))
         sort_descending(carrier, a, b);
-    
-    //a ½ºÅÃ¿¡ ¹ÌÁ¤·ÄµÈ ¹¶ÅÖÀÌ°¡ ÀÖÀ» °æ¿ì a_to_b
-    while (carrier->arem_cnt != 0)
+    //a ìŠ¤íƒì— ë¯¸ì •ë ¬ëœ ë­‰í……ì´ê°€ ìžˆì„ ê²½ìš° a_to_b
+    //b ìŠ¤íƒì— ë¯¸ì •ë ¬ëœ ë­‰í……ì´ê°€ ìžˆì„ ê²½ìš° b_to_a    
+    while (carrier->arem_cnt != 0 || carrier->brem_cnt != 0)
     {
-        if (carrier->pa_num == 0)
-            break ;
-        a_to_b(carrier, a, b);
-    }
-    //b ½ºÅÃ¿¡ ¹ÌÁ¤·ÄµÈ ¹¶ÅÖÀÌ°¡ ÀÖÀ» °æ¿ì b_to_a
-    while (carrier->b_cnt != 0)
-    {
-        if (carrier->pb_num == 0)
-            break ;
-        b_to_a(carrier, a, b);
+        if (carrier->arem_cnt != 0)
+            a_to_b(carrier, a, b); 
+        if (carrier->brem_cnt != 0)
+            b_to_a(carrier, a, b);
     }
 }

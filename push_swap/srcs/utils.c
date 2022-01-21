@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-//ø°∑Ø √‚∑¬ «‘ºˆ. ø°∑Ø Ω√ carrier->error ∏‚πˆ ∞™ == 1
+//ÏóêÎü¨ Ï∂úÎ†• Ìï®Ïàò. ÏóêÎü¨ Ïãú carrier->error Î©§Î≤Ñ Í∞í == 1
 void        error(t_carrier *carrier)
 {
     if (!carrier)
@@ -12,7 +12,7 @@ void        error(t_carrier *carrier)
     }
 }
 
-// AΩ∫≈√ ≥ª∫Œø° ¡ﬂ∫π º˝¿⁄ ø©∫Œ∏¶ »Æ¿Œ«œ¥¬ «‘ºˆ
+// AÏä§ÌÉù ÎÇ¥Î∂ÄÏóê Ï§ëÎ≥µ Ïà´Ïûê Ïó¨Î∂ÄÎ•º ÌôïÏù∏ÌïòÎäî Ìï®Ïàò
 void        is_overlapped(t_carrier *carrier, t_stack **a)
 {
     t_stack *temp;
@@ -36,7 +36,7 @@ void        is_overlapped(t_carrier *carrier, t_stack **a)
     }
 }
 
-// ??? Ω∫≈√ø° «™Ω√«ﬂ¿ª∂ß ¡§∫∏∏¶ πŸ≤„¡÷¥¬ «‘ºˆ ?
+// ??? Ïä§ÌÉùÏóê Ìë∏ÏãúÌñàÏùÑÎïå Ï†ïÎ≥¥Î•º Î∞îÍøîÏ£ºÎäî Ìï®Ïàò ?
 void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
 {
     t_stack *temp;
@@ -49,16 +49,16 @@ void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
         error(carrier);
     }
     temp->data = data;
-    //√÷¥Î∞™ √÷º“∞™ ¥ŸΩ√ «“¥Á
+    //ÏµúÎåÄÍ∞í ÏµúÏÜåÍ∞í Îã§Ïãú Ìï†Îãπ
     if (data > carrier->max)
         carrier->max = data;
     if (data < carrier->min)
         carrier->min = data;
-    // string«¸≈¬∑Œ µÈæÓø√∂ß ac_cnt == 1 ¿Ã±‚ ∂ßπÆø° ac_cnt++;
+    // stringÌòïÌÉúÎ°ú Îì§Ïñ¥Ïò¨Îïå ac_cnt == 1 Ïù¥Í∏∞ ÎïåÎ¨∏Ïóê ac_cnt++;
     carrier->ac_cnt++;
     carrier->a_cnt++;
-    //∫Û Ω∫≈√¿Ã µÈæÓø¿¥¬ ∞ÊøÏ
-   
+    carrier->arem_cnt++;
+    //Îπà Ïä§ÌÉùÏù¥ Îì§Ïñ¥Ïò§Îäî Í≤ΩÏö∞
     if (*stack == 0)
     {
         *stack = temp;
@@ -68,13 +68,13 @@ void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
     tail = (*stack)->prev;
     temp->next = 0;
     tail->next = temp;
-    //ªı∑Œ µÈæÓø¬ ≥ÎµÂ∏¶ ±‚¡∏ ≥ÎµÂ¿« ¥Ÿ¿Ω ≥ÎµÂ∑Œ ø¨∞·
+    //ÏÉàÎ°ú Îì§Ïñ¥Ïò® ÎÖ∏ÎìúÎ•º Í∏∞Ï°¥ ÎÖ∏ÎìúÏùò Îã§Ïùå ÎÖ∏ÎìúÎ°ú Ïó∞Í≤∞
     temp->prev = tail;
     (*stack)->prev = temp;
 }
 
 
-//Ω∫≈√ø°º≠ head≥ÎµÂ∏¶ ≤®≥ª∞Ì π›»Ø«œ¥¬ «‘ºˆ
+//Ïä§ÌÉùÏóêÏÑú headÎÖ∏ÎìúÎ•º Í∫ºÎÇ¥Í≥† Î∞òÌôòÌïòÎäî Ìï®Ïàò
 int     pop(t_stack **stack)
 {
     t_stack *pop;
@@ -83,7 +83,7 @@ int     pop(t_stack **stack)
     if (!stack)
         exit(1);
     pop = *stack;
-    //headNext∏¶ head∑Œ πŸ≤„¡÷¥¬ ∞˙¡§
+    //headNextÎ•º headÎ°ú Î∞îÍøîÏ£ºÎäî Í≥ºÏ†ï
     if ((*stack)->next)
     {
         (*stack)->next->prev = (*stack)->prev;
@@ -94,20 +94,20 @@ int     pop(t_stack **stack)
     return (data);
 }
 
-//∏≈∞≥∫Øºˆ node : Ω∫≈√ø° ªı∑Œ ¡˝æÓ≥÷¿ª ≥ÎµÂ
+//Îß§Í∞úÎ≥ÄÏàò node : Ïä§ÌÉùÏóê ÏÉàÎ°ú ÏßëÏñ¥ÎÑ£ÏùÑ ÎÖ∏Îìú
 void    push(t_stack **stack, int data)
 {
     t_stack *newNode;
     
     newNode = (t_stack *)malloc(sizeof(t_stack));
     newNode->data = data;
-    // ??? Ω∫≈√¿Ã ∫ÒæÓ¿÷¿ª ∞ÊøÏ
+    // ??? Ïä§ÌÉùÏù¥ ÎπÑÏñ¥ÏûàÏùÑ Í≤ΩÏö∞
     if (*stack == 0)
     {
         newNode->prev = newNode;
         *stack = newNode;
     }
-    // Ω∫≈√¿« head∏¶ ¿Œ¿⁄∑Œ µÈæÓø¬ node∑Œ ±≥√º
+    // Ïä§ÌÉùÏùò headÎ•º Ïù∏ÏûêÎ°ú Îì§Ïñ¥Ïò® nodeÎ°ú ÍµêÏ≤¥
     else
     {
         newNode->prev = (*stack)->prev;
@@ -116,43 +116,60 @@ void    push(t_stack **stack, int data)
     }
 }
 
-int    find_max(t_carrier *carrier, t_stack **stack)
+int    find_max(t_carrier *carrier, t_stack **stack, char c)
 {
     t_stack     *curr;
     int         max;
-    
-    if (!carrier || !stack)
+    int         i;
+
+    if (!stack)
         exit(1);
     curr = *stack;
+    printf("ac_cnt in find_max: %d\n", carrier->ac_cnt);
+    if (!carrier->a_remnant && !carrier->b_remnant)
+        i =  carrier->ac_cnt;
+    else
+    {
+        if (c == 'a')
+            i = carrier->a_remnant->data;
+        else
+            i = carrier->b_remnant->data;
+    }
+
     max = curr->data;
-    //¿Ã ∫Œ∫–!!!
-    while (curr)
+    while (i--)
     {
         if (max < curr->data)
             max = curr->data;
         curr = curr->next;
     }
-    carrier->max = max;
     return (max); 
 }
 
-int    find_min(t_carrier *carrier, t_stack **stack)
+int    find_min(t_carrier *carrier, t_stack **stack, char c)
 {
     t_stack     *curr;
     int         min;
-    
-    if (!carrier || !stack)
+    int         i;
+
+    if (!stack)
         exit(1);
     curr = *stack;
+    if (!carrier->a_remnant && !carrier->b_remnant)
+        i =  carrier->ac_cnt;
+    else 
+    {
+        if (c == 'a')
+            i = carrier->a_remnant->data;
+        else
+            i = carrier->b_remnant->data;
+    }
     min = curr->data;
-    // ¿Ã ∫Œ∫–!!!!!!!!!!
-    while (curr)
-    {   
-        printf("%d\n", curr->data);
+    while (i--)
+    {
         if (min > curr->data)
             min = curr->data;
         curr = curr->next;
     }
-    carrier->min = min;
     return (min); 
 }

@@ -1,4 +1,16 @@
-#include "ft_printf_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_pointer_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mson <mson@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/20 11:12:32 by mson              #+#    #+#             */
+/*   Updated: 2022/01/20 11:12:34 by mson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/ft_printf_bonus.h"
 
 void	ft_putptr(unsigned long long data,
 		unsigned long long base, t_info *info)
