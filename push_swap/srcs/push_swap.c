@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
 
-// ?? node 추가 -> push 함수의 인자 ???
+// ?? node 異붽?? -> push ?븿?닔?쓽 ?씤?옄 ???
 void     fill_stack(t_carrier *carrier, t_stack **a, int size, char **argv)
 {
     int data;
@@ -54,7 +54,7 @@ void    init_carrier(t_carrier *carrier)
     return ;
 }
 
-//채워진 a스택을 정렬하는 로직을 담은 함수
+//梨꾩썙吏? a?뒪?깮?쓣 ?젙?젹?븯?뒗 濡쒖쭅?쓣 ?떞??? ?븿?닔
 //void    push_swap(t_carrier *carrier, t_stack *a, t_stack *b)
 //{
 //}

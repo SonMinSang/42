@@ -33,7 +33,11 @@ void	a_to_b(t_carrier *carrier, t_stack **a, t_stack **b)
 		handle_one_two_a(carrier, a, b);
 		return ;
 	}
+<<<<<<< HEAD
 	//a_to_b¡Æ¢® ?©ø?¨ö ¨ö????? ¡Æ©¡¢¯?
+=======
+	//a_to_bÂ°Â¡ ÃƒÂ³Ã€Â½ Â½ÃƒÃ‡Ã ÂµÃ‰ Â°Ã¦Â¿Ã¬
+>>>>>>> aa88293ec16434a1cdca2c6ed022039ac896d6b6
     if (carrier->a_cnt == carrier->ac_cnt)
 	    pivot = (carrier->max + carrier->min) / 2;
     else 

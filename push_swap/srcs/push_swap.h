@@ -20,14 +20,14 @@ typedef struct s_carrier
 	int				a_cnt;
 	int				b_cnt;
 	int				error;
-	int				arem_cnt; // 미정렬된 남은 개수
-	int				brem_cnt; // 미정렬된 남은 개수
-	int				pa_num;	//pa로 a스택으로 넘어가는 숫자 개수
-	int				pb_num; //pb로 b스택으로 넘어가는 숫자 개수
-	int				rra_num; //rra되는 숫자 개수
+	int				arem_cnt; // 誘몄젙?젹?맂 ?궓??? 媛쒖닔
+	int				brem_cnt; // 誘몄젙?젹?맂 ?궓??? 媛쒖닔
+	int				pa_num;	//pa濡? a?뒪?깮?쑝濡? ?꽆?뼱媛??뒗 ?닽?옄 媛쒖닔
+	int				pb_num; //pb濡? b?뒪?깮?쑝濡? ?꽆?뼱媛??뒗 ?닽?옄 媛쒖닔
+	int				rra_num; //rra?릺?뒗 ?닽?옄 媛쒖닔
 	int				rrb_num;
-	t_stack			*a_remnant;  // 스택 b로 넘어가는 스택 a의 짜투리
-	t_stack			*b_remnant;	// 스택 a로 넘어가는 스택 b의 짜투리
+	t_stack			*a_remnant;  // ?뒪?깮 b濡? ?꽆?뼱媛??뒗 ?뒪?깮 a?쓽 吏쒗닾由?
+	t_stack			*b_remnant;	// ?뒪?깮 a濡? ?꽆?뼱媛??뒗 ?뒪?깮 b?쓽 吏쒗닾由?
 }					t_carrier;
 
 

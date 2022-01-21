@@ -28,7 +28,7 @@ $(NAME):
 	gcc $(FLAGS) -c $(SRCS) $(INCLUDE)
 	ar rc $(NAME) $(OBJS)
 
-bonus :
+bonus : 
 	gcc $(FLAGS) -c $(BONUS_SRCS) $(INCLUDE)
 	ar rc $(NAME) $(BONUS_OBJS)
 
@@ -39,5 +39,6 @@ clean:
 fclean : clean
 	rm -rf $(NAME)
 
-
 re: fclean all
+
+.PHONY: all bonus clean fclean re

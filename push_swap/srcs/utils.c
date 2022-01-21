@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-//¿¡·¯ Ãâ·Â ÇÔ¼ö. ¿¡·¯ ½Ã carrier->error ¸â¹ö °ª == 1
+//?—?Ÿ¬ ì¶œë ¥ ?•¨?ˆ˜. ?—?Ÿ¬ ?‹œ carrier->error ë©¤ë²„ ê°? == 1
 void        error(t_carrier *carrier)
 {
     if (!carrier)
@@ -12,7 +12,7 @@ void        error(t_carrier *carrier)
     }
 }
 
-// A½ºÅÃ ³»ºÎ¿¡ Áßº¹ ¼ıÀÚ ¿©ºÎ¸¦ È®ÀÎÇÏ´Â ÇÔ¼ö
+// A?Š¤?ƒ ?‚´ë¶??— ì¤‘ë³µ ?ˆ«? ?—¬ë¶?ë¥? ?™•?¸?•˜?Š” ?•¨?ˆ˜
 void        is_overlapped(t_carrier *carrier, t_stack **a)
 {
     t_stack *temp;
@@ -36,7 +36,7 @@ void        is_overlapped(t_carrier *carrier, t_stack **a)
     }
 }
 
-// ??? ½ºÅÃ¿¡ Çª½ÃÇßÀ»¶§ Á¤º¸¸¦ ¹Ù²ãÁÖ´Â ÇÔ¼ö ?
+// ??? ?Š¤?ƒ?— ?‘¸?‹œ?–ˆ?„?•Œ ? •ë³´ë?? ë°”ê¿”ì£¼ëŠ” ?•¨?ˆ˜ ?
 void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
 {
     t_stack *temp;
@@ -49,16 +49,16 @@ void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
         error(carrier);
     }
     temp->data = data;
-    //ÃÖ´ë°ª ÃÖ¼Ò°ª ´Ù½Ã ÇÒ´ç
+    //ìµœë??ê°? ìµœì†Œê°? ?‹¤?‹œ ?• ?‹¹
     if (data > carrier->max)
         carrier->max = data;
     if (data < carrier->min)
         carrier->min = data;
-    // stringÇüÅÂ·Î µé¾î¿Ã¶§ ac_cnt == 1 ÀÌ±â ¶§¹®¿¡ ac_cnt++;
+    // string?˜•?ƒœë¡? ?“¤?–´?˜¬?•Œ ac_cnt == 1 ?´ê¸? ?•Œë¬¸ì— ac_cnt++;
     carrier->ac_cnt++;
     carrier->a_cnt++;
     carrier->arem_cnt++;
-    //ºó ½ºÅÃÀÌ µé¾î¿À´Â °æ¿ì
+    //ë¹? ?Š¤?ƒ?´ ?“¤?–´?˜¤?Š” ê²½ìš°
     if (*stack == 0)
     {
         *stack = temp;
@@ -68,13 +68,13 @@ void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
     tail = (*stack)->prev;
     temp->next = 0;
     tail->next = temp;
-    //»õ·Î µé¾î¿Â ³ëµå¸¦ ±âÁ¸ ³ëµåÀÇ ´ÙÀ½ ³ëµå·Î ¿¬°á
+    //?ƒˆë¡? ?“¤?–´?˜¨ ?…¸?“œë¥? ê¸°ì¡´ ?…¸?“œ?˜ ?‹¤?Œ ?…¸?“œë¡? ?—°ê²?
     temp->prev = tail;
     (*stack)->prev = temp;
 }
 
 
-//½ºÅÃ¿¡¼­ head³ëµå¸¦ ²¨³»°í ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+//?Š¤?ƒ?—?„œ head?…¸?“œë¥? êº¼ë‚´ê³? ë°˜í™˜?•˜?Š” ?•¨?ˆ˜
 int     pop(t_stack **stack)
 {
     t_stack *pop;
@@ -83,7 +83,7 @@ int     pop(t_stack **stack)
     if (!stack)
         exit(1);
     pop = *stack;
-    //headNext¸¦ head·Î ¹Ù²ãÁÖ´Â °úÁ¤
+    //headNextë¥? headë¡? ë°”ê¿”ì£¼ëŠ” ê³¼ì •
     if ((*stack)->next)
     {
         (*stack)->next->prev = (*stack)->prev;
@@ -94,20 +94,20 @@ int     pop(t_stack **stack)
     return (data);
 }
 
-//¸Å°³º¯¼ö node : ½ºÅÃ¿¡ »õ·Î Áı¾î³ÖÀ» ³ëµå
+//ë§¤ê°œë³??ˆ˜ node : ?Š¤?ƒ?— ?ƒˆë¡? ì§‘ì–´?„£?„ ?…¸?“œ
 void    push(t_stack **stack, int data)
 {
     t_stack *newNode;
     
     newNode = (t_stack *)malloc(sizeof(t_stack));
     newNode->data = data;
-    // ??? ½ºÅÃÀÌ ºñ¾îÀÖÀ» °æ¿ì
+    // ??? ?Š¤?ƒ?´ ë¹„ì–´?ˆ?„ ê²½ìš°
     if (*stack == 0)
     {
         newNode->prev = newNode;
         *stack = newNode;
     }
-    // ½ºÅÃÀÇ head¸¦ ÀÎÀÚ·Î µé¾î¿Â node·Î ±³Ã¼
+    // ?Š¤?ƒ?˜ headë¥? ?¸?ë¡? ?“¤?–´?˜¨ nodeë¡? êµì²´
     else
     {
         newNode->prev = (*stack)->prev;

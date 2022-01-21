@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	init_info(t_info *info)
 {
@@ -36,6 +36,8 @@ int	ft_printf(const char *format, ...)
 	char	*str;
 
 	info = (t_info *)malloc(sizeof(t_info));
+	if (!info)
+		return (-1);
 	str = (char *)format;
 	va_start(ap, format);
 	init_info(info);

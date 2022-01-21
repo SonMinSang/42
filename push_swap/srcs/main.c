@@ -50,6 +50,8 @@ int main(int argc, char **argv)
     //     sort_five(&carrier, &a, &b);
     // print_stack(&carrier, a);
 
+    sort_many(&carrier, &a, &b);
+    print_stack(&carrier, a);
     // printf("head : %d\n", a->data);
     // printf("headNext : %d\n", a->next->data);
     // printf("tail : %d\n", a->next->next->data);

@@ -1,4 +1,16 @@
-#include "ft_printf_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mson <mson@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/20 11:10:33 by mson              #+#    #+#             */
+/*   Updated: 2022/01/20 11:10:37 by mson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/ft_printf_bonus.h"
 
 void	init_info(t_info *info)
 {
@@ -24,6 +36,8 @@ int	ft_printf(const char *format, ...)
 	char	*str;
 
 	info = (t_info *)malloc(sizeof(t_info));
+	if (!info)
+		return (-1);
 	str = (char *)format;
 	va_start(ap, format);
 	init_info(info);
