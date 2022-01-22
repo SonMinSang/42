@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-//ëª¨ë“  ë…¸ë“œë¥¼ ìˆœíšŒí•˜ë©° ë…¸ë“œ free
+//ëª¨ë“  ?…¸?“œë¥? ?ˆœ?šŒ?•˜ë©? ?…¸?“œ free
 void	free_stack(t_stack **stack)
 {
 	t_stack *temp;
@@ -17,7 +17,7 @@ void	free_stack(t_stack **stack)
 	}
 }
 
-//array freea í•¨ìˆ˜
+//array freea ?•¨?ˆ˜
 void	free_arr(char **arr)
 {
 	int i;

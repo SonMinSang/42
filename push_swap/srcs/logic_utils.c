@@ -11,7 +11,7 @@ void	pivoting_a(t_carrier *carrier, t_stack **a, t_stack **b, int pivot)
 	carrier->rra_num = 0;
 	printf("[pivition_a] in\n");
 
-	//{ 피봇보다 작거나 같은 값을 pb & arem_cnt-- & pb_num++}
+	//{ �뵾?��?��?���떎 �옉嫄곕�? 媛숈�� 媛�?�쓣 pb & arem_cnt-- & pb_num++}
 	while (count--)
 	{   
         head = *a;
@@ -21,15 +21,12 @@ void	pivoting_a(t_carrier *carrier, t_stack **a, t_stack **b, int pivot)
 		{
 			pb(carrier, a, b);
 			carrier->brem_cnt++;
-			carrier->arem_cnt--;
-			carrier->pb_num++;
+			carrier->pa_num++;
 		}
-		//{ 피봇보다 크다면 ra & rra_num++ (미정렬된 숫자의 다시 rra로 올려줘야하니까)}
+		//{ �뵾?��?��?���떎 �겕�떎硫� ra & rra_num++ (誘몄?���젹�맂 �닽�옄�쓽 �떎�떆 rra濡� �삱�젮以섏빞��?�땲源�)}
 		else
 		{
-            
-			ra(a);
-            
+			ra(a);   
 			carrier->rra_num++;
 		}
 	}
@@ -38,23 +35,28 @@ void	pivoting_a(t_carrier *carrier, t_stack **a, t_stack **b, int pivot)
 void	pivoting_b(t_carrier *carrier, t_stack **a, t_stack **b, int pivot)
 {
 	t_stack *head;
-	
-		printf("[pivition_b] in\n");
 
+	printf("[pivition_b] in\n");
 
-	carrier->rrb_num = 0;
-	head = *b;
-	//{ 피봇보다 작거나 같은 값을 pa & brem_cnt-- & pa_num++}
-	if (head->data <= pivot)
+	while (carrier->b_cnt > 0)
 	{
-		pa(carrier, a, b);
+		head = *b;
+		//printf("curr->data : %d <= pivot : %d\n", head->data, pivot);
 
-	}
-	//{ 피봇보다 크다면 rb & rrb_num++ (미정렬된 숫자 다시 rrb로 올려줘야하니까)}
-	else
-	{
-		rb(b);
-
+		//{ �뵾?��?��?���떎 �옉嫄곕�? 媛숈�� 媛�?�쓣 pa & brem_cnt-- & pa_num++}
+		if (head->data <= pivot)
+		{
+			pa(carrier, a, b);
+			carrier->pa_num--;
+			carrier->a_cnt++;
+		}
+		//{ �뵾?��?��?���떎 �겕�떎硫� rb & rrb_num++ (誘몄?���젹�맂 �닽�옄 �떎�떆 rrb濡� �삱�젮以섏빞��?�땲源�)}
+		else
+		{
+			rb(b);
+			carrier->rrb_num++;
+		}
+		carrier->b_cnt--;
 	}	
 }
 
@@ -62,7 +64,7 @@ void	attach_unsorted(t_carrier *carrier, t_stack **a, t_stack **b, char c)
 {
     t_stack *unsorted;
 
-	printf("[attach_unsorted] in");
+	printf("[attach_unsorted] in\n");
 
     unsorted = (t_stack *)malloc(sizeof(t_stack));
 	if (!unsorted)
@@ -88,28 +90,28 @@ void	handle_one_two_a(t_carrier *carrier, t_stack **a, t_stack **b)
 	t_stack *b_head;
 	t_stack *head;
 
-	//이제 b_remnant 연결리스트 맨 위에 있는 놈을 free해줄거임
-	//새 포인터 그릇에 기존 b_head를 담아줌
+	//�씠�젣 b_remnant �뿰寃곕?���뒪�듃 留� �쐞�뿉 �엳�뒗 �냸�쓣 free�빐以꾧굅�?��
+	//�깉 �룷�씤�꽣 洹몃�?�뿉 湲곗??? b_head?���? �떞�븘以�
 	b_head = carrier->b_remnant;
 	if (b_head)
 	{
-		//brem_cnt에 현재 1 혹은 2의 잔류개수값 할당 
+		//brem_cnt�뿉 �쁽�옱 1 �샊���? 2�쓽 �옍?��?��컻�?��媛� �븷�떦 
 		carrier->brem_cnt = carrier->b_remnant->data;
-		//b_remnant가 가리키는 headNode를 두번째로 바꿔주는 
+		//b_remnant媛� 媛�?��?�궎�뒗 headNode?���? �몢踰덉?��濡� 諛붽?��二쇰?�� 
 		carrier->b_remnant = carrier->b_remnant->next;
 	}
-	//쓰임을 다한 (한두개짜리)b_head는 free
+	//�벐�엫�쓣 �떎�븳 (�븳�몢媛쒖쭨由�?)b_head�뒗 free
 	free(b_head);
 	
 	head = *a;
-	//개수 1의 경우
+	//媛쒖?�� 1�쓽 寃쎌?��
 	if (carrier->arem_cnt == 1)
 	{
 		ra(a);
 		carrier->arem_cnt = 0;
 		return ;
 	}
-	//개수 2의 경우
+	//媛쒖?�� 2�쓽 寃쎌?��
 	if (head->data > head->next->data)
 		sa(a);
 	ra(a);
@@ -131,7 +133,7 @@ void	handle_one_two_b(t_carrier *carrier, t_stack **a, t_stack **b)
 	free(a_head); 
 
 	head = *b;
-	//b의 unsorted 탑 개수가 1일때
+	//b�쓽 unsorted �깙 媛쒖?��媛� 1�씪�븣
 	if (carrier->brem_cnt == 1)
 	{
 		pa(carrier, a, b);
@@ -139,7 +141,7 @@ void	handle_one_two_b(t_carrier *carrier, t_stack **a, t_stack **b)
 		carrier->brem_cnt = 0;
 		return ;
 	}
-	//b의 unsorted 탑 개수가 2일때
+	//b�쓽 unsorted �깙 媛쒖?��媛� 2�씪�븣
 	if (head->data < head->next->data)
 		sb(b);
 	pa(carrier, a, b);

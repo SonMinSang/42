@@ -122,9 +122,8 @@ void    sort_many(t_carrier *carrier, t_stack **a, t_stack **b)
     //b ?Š¤?ƒ?— ë¯¸ì •? ¬?œ ë­‰í……?´ê°? ?ˆ?„ ê²½ìš° b_to_a    
     while (carrier->arem_cnt != 0 || carrier->brem_cnt != 0)
     {
-        if (carrier->arem_cnt != 0)
-            a_to_b(carrier, a, b); 
-        if (carrier->brem_cnt != 0)
+        a_to_b(carrier, a, b); 
+        if (carrier->pa_num != 0)
             b_to_a(carrier, a, b);
     }
 }

@@ -1,6 +1,9 @@
 {
   "files.associations": {
     "ft_printf.h": "c",
-    "ft_printf_bonus.h": "c"
+    "ft_printf_bonus.h": "c",
+    "array": "c",
+    "initializer_list": "c",
+    "utility": "c"
   }
 }
