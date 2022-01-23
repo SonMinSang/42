@@ -49,8 +49,8 @@ void    init_carrier(t_carrier *carrier)
     carrier->pb_num = 0;
     carrier->a_remnant = 0;
     carrier->b_remnant = 0;
-    int		rra_num = 0;
-    int		rrb_num = 0;
+    carrier->rra_num = 0;
+    carrier->rrb_num = 0;
     return ;
 }
 

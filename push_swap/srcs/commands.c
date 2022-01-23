@@ -50,7 +50,6 @@ void	ra(t_stack **a)
 		bottom->next = top;
 		top->next = 0;
 		*a = second;
-		printf("ra\n");
 	}
 	// t_stack *head;
 	// t_stack *headNext;
@@ -71,7 +70,6 @@ void	ra(t_stack **a)
 	// }
 	// write(1, "ra\n", 3);
 	// return ;
-	
 }
 
 void	rb(t_stack **b)  

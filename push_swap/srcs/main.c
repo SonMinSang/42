@@ -51,10 +51,12 @@ int main(int argc, char **argv)
     // print_stack(&carrier, a);
 
     sort_many(&carrier, &a, &b);
-    printf("a\n");
+    printf("ac\n");
     print_stack(&carrier, a);
     print_stack(&carrier, b);
-    printf("a\n");
+    printf("av\n");
+
+
     // printf("head : %d\n", a->data);
     // printf("headNext : %d\n", a->next->data);
     // printf("tail : %d\n", a->next->next->data);

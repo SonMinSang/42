@@ -34,15 +34,16 @@ void	a_to_b(t_carrier *carrier, t_stack **a, t_stack **b)
 		return ;
 	}
 	//a_to_bì§¸ì§• ?š„ì¨?ï¿½ï¿½ì©? ì©íš„?š‰?šªì¨‰íš‹ ì§¸ì±ˆì©”ì±™
+    printf("carrier->arem_cnt : %d\n", carrier->a_cnt);
     if (carrier->a_cnt == carrier->ac_cnt)
 	    pivot = (carrier->max + carrier->min) / 2;
-    else 
-        pivot = find_pivot(a, carrier->arem_cnt);
+    else
+        pivot = find_pivot(a, carrier->a_cnt);
 	pivoting_a(carrier, a, b, pivot);
     printf("debug after pivoting_a\n>>>\n");
     
     attach_unsorted(carrier, a, b, 'a');
-    
+    print_stack(carrier, *a);
     head = *a;
     while (carrier->rra_num > 0 &&
         (carrier->a_remnant->next || head->data == carrier->min))
@@ -64,12 +65,14 @@ void    b_to_a(t_carrier *carrier, t_stack **a, t_stack **b)
         handle_one_two_b(carrier, a, b);
         return ;
     }
-    pivot = find_pivot(b, carrier->brem_cnt);
+    pivot = find_pivot(b, carrier->b_cnt);
     pivoting_b(carrier, a, b, pivot);
     attach_unsorted(carrier, a, b, 'b');
     printf("a\n");
-    while (carrier->b_remnant->next && carrier->rrb_num > 0)
+    printf("%d\n", carrier->rrb_num);
+    while (carrier->b_remnant->next !=0 && carrier->rrb_num > 0)
     {
+        printf("1111111111\n");
         rrb(b);
         carrier->rrb_num--;
     }
