@@ -1,35 +1,28 @@
 #include "push_swap.h"
 
-//ëª¨ë“  ?…¸?“œë¥? ?ˆœ?šŒ?•˜ë©? ?…¸?“œ free
-void	free_stack(t_stack **stack)
-{
-	t_stack *temp;
-	t_stack *next;
-
-	if (*stack == 0)
-		return ;
-	temp = *stack;
-	while (temp)
-	{
-		next = temp->next;
-		free(temp);
-		temp = next;
-	}
-}
-
-//array freea ?•¨?ˆ˜
-void	free_arr(char **arr)
+void	ft_split_free(char **s)
 {
 	int i;
 
-	i = 0;
-	if (arr)
+	i = -1;
+	while (s[++i] != 0)
+		free(s[i]);
+	free(s[i]);
+	free(s);
+}
+
+void	free_stack(t_stack **a_or_b)
+{
+	t_stack *p;
+	t_stack *t;
+
+	if (*a_or_b == 0)
+		return ;
+	p = *a_or_b;
+	while (p != 0)
 	{
-		while (arr[i])
-		{
-			free(arr[i]);
-			i++;
-		}
-		free(arr);
+		t = p->next;
+		free(p);
+		p = t;
 	}
 }

@@ -1,127 +1,106 @@
 #include "push_swap.h"
+#include <stdio.h>
 
-int		is_sorted(t_stack *a)
-{   
-	if (!a)
-		exit(1);
-	while (a->next)
-    {
-        if (a->data > a->next->data)
-            return (0);
-        a = a->next;
-    }
-    return (1);
+int		is_descending(t_carrier *carrier, t_stack **a)
+{
+	int		before;
+	t_stack	*p;
+
+	p = *a;
+	if (p->data != carrier->max)
+		return (0);
+	before = p->data;
+	p = p->next;
+	while (p != 0)
+	{
+		if (before < p->data)
+			return (0);
+		before = p->data;
+		p = p->next;
+	}
+	return (1);
+}
+
+int		sort_descending(t_carrier *carrier, t_stack **a, t_stack **b)
+{
+	int i;
+
+	i = carrier->argc;
+	pb(a, b);
+	while (--i > 0)
+	{
+		pb(a, b);
+		rb(b, 0);
+	}
+	i = carrier->argc;
+	while (i-- > 0)
+		pa(a, b);
+	return (1);
 }
 
 void	sort_three(t_carrier *carrier, t_stack **a)
 {
-    if (!carrier || !a)
-		exit(1);
-    //1 2 3 
-	if ((*a)->data < (*a)->next->data && (*a)->next->data < (*a)->next->next->data)
-        return ;
-    //1 3 2 
-    else if ((*a)->next->next->data > (*a)->data && (*a)->next->data > (*a)->next->next->data)
-    {
-        sa(a);
-        ra(a);
-    }
-    //2 1 3 
-    else if ((*a)->data > (*a)->next->data && (*a)->next->next->data > (*a)->data)
-        sa(a);
-    //2 3 1
-	else if ((*a)->next->data > (*a)->data && (*a)->data > (*a)->next->next->data)
-        rra(a);
-    //3 1 2
-	else if ((*a)->data > (*a)->next->next->data && (*a)->next->next->data > (*a)->next->data)
-        ra(a);
-    //3 2 1
-    else if ((*a)->data > (*a)->next->data && (*a)->next->data > (*a)->next->next->data)
-    {
-        ra(a);
-        sa(a);
-    }
-    return ; 
+	int		before;
+	t_stack *p;
+
+	find_three(carrier, a);
+
+	p = *a;
+	before = p->data;
+	p = p->next;
+	if ((before == carrier->min && p->data == carrier->max) ||
+	(before == carrier->max && p->data != carrier->min) ||
+	(before != carrier->max && p->data == carrier->min))
+		sa(a, 0);
+	p = *a;
+	before = p->data;
+	p = p->next;
+	if (before == carrier->max && p->data == carrier->min)
+		ra(a, 0);
+	else if (before != carrier->min && p->data == carrier->max)
+		rra(a, 0);
+	return ;
 }
 
-int    is_descending(t_carrier *carrier, t_stack *a)
-{
-    t_stack *curr;
-
-    if (!carrier || !a)
-        return (0);
-    curr = a;
-    while (curr->next)
-    {
-        if (curr->data < curr->next->data)
-            return (0);
-         curr = curr->next;
-    }
-    return (1);
-}
-
-void    sort_descending(t_carrier *carrier, t_stack **a, t_stack **b)
-{
-    int i;
-    
-    if (!carrier || !a)
-        return ;
-        //ì²? pb
-    pb(carrier, a, b);
-        //a?Š¤?ƒ?´ ë¹„ì›Œì§ˆë•Œê¹Œì?? pb rb
-    i = carrier->ac_cnt;
-    while (--i)
-    {
-        pb(carrier, a, b);
-        rb(b);
-    }
-    while (i++ < carrier->ac_cnt)
-        pa(carrier, a, b);
-        //b?Š¤?ƒ?´ ë¹„ì›Œì§ˆë•Œê¹Œì?? pa
-}
-// ?Š¤?ƒ a?—?„œ 5ê°? ?ˆ«?ž ?˜¤ë¦„ì°¨?ˆœ ? •? ¬
 void	sort_five(t_carrier *carrier, t_stack **a, t_stack **b)
 {
-    int max;
-    int min;
-    int i;
-    
-    max = carrier->max;
-    min = carrier->min;
-    i = 0;
-    printf("max: %d, min: %d", max, min);
-    while(i++ < 5)
-    {
-        printf("data: %d\n", ((*a))->data);
-        if ((*a)->data == min || (*a)->data == max)
-            pb(carrier, a, b);    
-        else
-            ra(a);
-    }
-    sort_three(carrier, a);
+	t_stack *curr;
 
-    if ((*b)->data == min)
-        sb(b);
-    pa(carrier, a, b);
-    ra(a);
-    pa(carrier, a, b);
+	while (carrier->argc--)
+	{
+		curr = *a;
+		if (curr->data == carrier->max || curr->data == carrier->min)
+			pb(a, b);
+		else
+			ra(a, 0);
+	}
+	sort_three(carrier, a);
+	print_stack(carrier, *a);
+	print_stack(carrier, *b);
 
-    return ;
+	printf("b : %d, b->next : %d\n", (*b)->data, (*b)->next->data);
+	if ((*b)->data < (*b)->next->data)
+		sb(b, 0);
+	pa(a, b);
+	ra(a, 0);
+	pa(a, b);
+	
+	printf("sort five\n");
+	return ;
 }
 
-void    sort_many(t_carrier *carrier, t_stack **a, t_stack **b)
+void	sort_many(t_carrier *carrier, t_stack **a, t_stack **b)
 {
-    printf("[sort many] in\n");
-    if (!carrier || !a)
-        return ;
-    if (is_sorted(*a))
-        return ;
-    if (is_descending(carrier, *a))
-        sort_descending(carrier, a, b);
-    while (carrier->arem_cnt != 0 || carrier->brem_cnt != 0)
-    {
-        a_to_b(carrier, a, b);
-        if (carrier->pa_num != 0)
-            b_to_a(carrier, a, b);
-    }
+	carrier->a_cnt = carrier->argc;
+	if ((is_sorted(a)) == 1)
+		return ;
+	if ((is_descending(carrier, a)) == 1 && (sort_descending(carrier, a, b)) == 1)
+		return ;
+	while (carrier->a_cnt != 0)
+	{
+		a_to_b(carrier, a, b);
+		if (carrier->pb_cnt == 0)
+			continue ;
+		b_to_a(carrier, a, b);
+	}
 }

@@ -1,9 +1,7 @@
 #include "push_swap.h"
 
-
-void	pa(t_carrier *carrier, t_stack **a, t_stack **b)
+void	pa(t_stack **a, t_stack **b)
 {
-
 	t_stack *b_top;
 	t_stack *a_second;
 
@@ -16,12 +14,10 @@ void	pa(t_carrier *carrier, t_stack **a, t_stack **b)
 		b_top->next = a_second;
 	}
 	write(1, "pa\n", 3);
-	return ;
 }
 
-void	pb(t_carrier *carrier, t_stack **a, t_stack **b)
+void	pb(t_stack **a, t_stack **b)
 {
-
 	t_stack *a_top;
 	t_stack *b_second;
 
@@ -31,10 +27,50 @@ void	pb(t_carrier *carrier, t_stack **a, t_stack **b)
 	*b = a_top;
 	a_top->next = b_second;
 	write(1, "pb\n", 3);
-	return ;
 }
 
-void	ra(t_stack **a)
+void	sa(t_stack **a, char is_ss)
+{
+	t_stack *p;
+	t_stack *top;
+	t_stack *second;
+
+	second = *a;
+	if (second->next != 0)
+	{
+		top = second->next;
+		p = top->next;
+		*a = top;
+		top->next = second;
+		second->next = p;
+	}
+	if (is_ss == 0)
+		write(1, "sa\n", 3);
+}
+
+void	sb(t_stack **b, char is_ss)
+{
+	t_stack *p;
+	t_stack *top;
+	t_stack *second;
+
+	second = *b;
+	if (second != 0 && second->next != 0)
+	{
+		top = second->next;
+		p = top->next;
+		*b = top;
+		top->next = second;
+		second->next = p;
+	}
+	if (is_ss == 0)
+		write(1, "sb\n", 3);
+	else
+		write(1, "ss\n", 3);
+}
+
+
+void	ra(t_stack **a, char is_rr)
 {
 	t_stack *top;
 	t_stack *second;
@@ -51,128 +87,75 @@ void	ra(t_stack **a)
 		top->next = 0;
 		*a = second;
 	}
-	// t_stack *head;
-	// t_stack *headNext;
-	// t_stack *tail;
-	
-	// if (!a)
-	// 	exit(1);
-	// head = *a;
-	// if (head->next)
-	// {
-	// 	headNext = head->next;
-	// 	tail = head->prev;
-
-	// 	*a = headNext;
-	// 	tail->next = head;
-	// 	head->prev = tail;
-	// 	head->next = 0;
-	// }
-	// write(1, "ra\n", 3);
-	// return ;
+	if (is_rr == 0)
+		write(1, "ra\n", 3);
 }
 
-void	rb(t_stack **b)  
+void	rb(t_stack **b, char is_rr)
 {
-	t_stack *head;
-	t_stack *headNext;
-	
-	if (!b)
-		exit(1);
-	head = *b;
-	if (head->next)
+	t_stack *top;
+	t_stack *second;
+	t_stack *bottom;
+
+	top = *b;
+	if (top != 0 && top->next != 0)
 	{
-		headNext = head->next;
-		*b = headNext;
-		head->prev->next = head;
-		head->next = 0;
+		second = top->next;
+		bottom = top->next;
+		while (bottom->next != 0)
+			bottom = bottom->next;
+		bottom->next = top;
+		top->next = 0;
+		*b = second;
 	}
-	write(1, "rb\n", 3);
-	return ;
+	if (is_rr == 0)
+		write(1, "rb\n", 3);
+	else
+		write(1, "rr\n", 3);
 }
 
-void	rra(t_stack **a)
+void	rra(t_stack **a, char is_rrr)
 {
-	t_stack *head;
-	t_stack *tail;
+	t_stack *top;
+	t_stack *pre_bottom;
+	t_stack *bottom;
 
-	if (!a)
-		exit(1);
-	head = *a;
-	if (head->next)
-	{	
-		tail = head->prev;
-		tail->prev->next = 0;
-		*a = tail;
-		tail->next = head;
-		
-	}
-	write(1, "rra\n", 3);
-	return ;
-}
-
-void	rrb(t_stack **b)
-{
-	t_stack *head;
-	t_stack *tail;
-
-	if (!b)
-		exit(1);
-	head = *b;
-	if (head->next)
-	{	
-		tail = head->prev;
-		tail->prev->next = 0;
-		*b = tail;
-		tail->next = head;
-	}
-	write(1, "rrb\n", 3);
-	return ;
-}
-
-void	sa(t_stack **a)
-{
-	t_stack *head;
-	t_stack *headNextNext;
-	t_stack *headNext;
-	t_stack *tail;
-	head = *a;
-	if (head->next != 0)
+	top = *a;
+	if (top->next != 0)
 	{
-		tail = head->prev;
-		headNext = head->next;
-		headNextNext = headNext->next;
-		*a = headNext;
-		headNext->next = head;
-		head->prev = headNext;
-		head->next = headNextNext;
-		headNextNext->prev = head;
-		headNext->prev = tail;
+		bottom = top;
+		while ((bottom->next)->next != 0)
+			bottom = bottom->next;
+		pre_bottom = bottom;
+		bottom = bottom->next;
+		pre_bottom->next = 0;
+		*a = bottom;
+		bottom->next = top;
 	}
-	write(1, "sa\n", 3);
-	return ;
+	if (is_rrr == 0)
+		write(1, "rra\n", 4);
 }
 
-void	sb(t_stack **b)
+void	rrb(t_stack **b, char is_rrr)
 {
-	t_stack *head;
-	t_stack *headNextNext;
-	t_stack *headNext;
-	t_stack *tail;
+	t_stack *top;
+	t_stack *pre_bottom;
+	t_stack *bottom;
 
-	head = *b;
-	if (head->next != 0)
+	top = *b;
+	if (top != 0 && top->next != 0)
 	{
-		tail = head->prev;
-		headNext = head->next;
-		headNextNext = headNext->next;
-		*b = headNext;
-		headNext->next = head;
-		head->prev = headNext;
-		head->next = headNextNext;
-		headNextNext->prev = head;
-		headNext->prev = tail;
+		bottom = top;
+		while ((bottom->next)->next != 0)
+			bottom = bottom->next;
+		pre_bottom = bottom;
+		bottom = bottom->next;
+		pre_bottom->next = 0;
+		*b = bottom;
+		bottom->next = top;
 	}
-	write(1, "sb\n", 3);
-	return ;
+	if (is_rrr == 0)
+		write(1, "rrb\n", 4);
+	else
+		write(1, "rrr\n", 4);
 }

@@ -1,86 +1,86 @@
 #include "push_swap.h"
 
-static int		ft_check(char s, char c)
+static size_t	get_word_num(char const *s, char c)
 {
-	if (s == c)
-		return (1);
-	return (0);
-}
+	size_t num;
 
-static int		ft_size(const char *str, char c)
-{
-	int size;
-	int index;
-
-	size = 0;
-	index = 0;
-	while (str[index])
+	num = 0;
+	while (*s != 0)
 	{
-		while (str[index] && ft_check(str[index], c))
-			index++;
-		if (str[index] && !ft_check(str[index], c))
+		if (*s != c && *s != 0)
 		{
-			while (str[index] && !ft_check(str[index], c))
-				index++;
-			size++;
+			num++;
+			while (*s != c && *s != 0)
+				s++;
 		}
+		else if (*s != 0)
+			s++;
 	}
-	return (size);
+	return (num);
 }
 
-static char		*ft_input(const char *str, char c)
+static void		split_cpy(char *arr, char *p, char const *s)
 {
-	int		index;
-	int		count;
-	char	*input;
+	while (p < s)
+		*arr++ = *p++;
+	*arr = 0;
+}
 
-	index = 0;
-	count = 0;
-	while (str[count] && !ft_check(str[count], c))
-		count++;
-	if (!(input = (char *)malloc(sizeof(char) * (count + 1))))
-		return (NULL);
-	while (str[index] && !ft_check(str[index], c))
+static void		free_arr(char **arr, size_t i)
+{
+	size_t j;
+
+	j = 0;
+	while (j < i)
 	{
-		input[index] = str[index];
-		index++;
+		free(arr[j]);
+		j++;
 	}
-	input[index] = 0;
-	return (input);
+	free(arr);
+	arr = 0;
 }
 
-static char		**free_all(char **result, int index)
+static void		do_split(char **arr, char const *s, char c, size_t i)
 {
-	while (index-- >= 0)
-		free((void *)result[index]);
-	free(result);
-	return (NULL);
+	char *p;
+
+	if (*s == 0)
+		return ;
+	while (*s != 0)
+	{
+		if (*s != c && *s != 0)
+		{
+			p = (char*)s;
+			while (*s != c && *s != 0)
+				s++;
+			if (!(arr[i] = (char*)malloc(sizeof(char)
+			* (s - p + 1))))
+			{
+				free_arr(arr, i);
+				return ;
+			}
+			split_cpy(arr[i], p, s);
+			i++;
+		}
+		else if (*s != 0)
+			s++;
+	}
 }
 
 char			**ft_split(char const *s, char c)
 {
-	char	**result;
-	int		index;
+	char	**arr;
+	size_t	num;
 
-	if (!s)
-		return (NULL);
-	if (!(result = (char **)malloc(sizeof(char *) * (ft_size(s, c) + 1))))
-		return (NULL);
-	index = 0;
-	while (*s)
-	{
-		while (*s && ft_check(*s, c))
-			s++;
-		if (*s && !ft_check(*s, c))
-		{
-			result[index] = ft_input(s, c);
-			if (!result[index])
-				return (free_all(result, index));
-			while (*s && !ft_check(*s, c))
-				s++;
-			index++;
-		}
-	}
-	result[index] = 0;
-	return (result);
+	if (s == 0)
+		return ((void*)0);
+	num = get_word_num(s, c);
+	if (num == 0)
+		return ((void*)0);
+	arr = (char**)malloc(sizeof(char*) * (num + 1));
+	if (arr == 0)
+		return ((void*)0);
+	arr[num] = 0;
+	do_split(arr, s, c, 0);
+	return (arr);
 }

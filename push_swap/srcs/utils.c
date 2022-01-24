@@ -1,175 +1,91 @@
 #include "push_swap.h"
 
-//?—?Ÿ¬ ì¶œë ¥ ?•¨?ˆ˜. ?—?Ÿ¬ ?‹œ carrier->error ë©¤ë²„ ê°? == 1
-void        error(t_carrier *carrier)
+
+long	get_integer(char *av, t_stack **a, char **s)
 {
-    if (!carrier)
-        exit(1);
-    if (!carrier->error)
-    {
-        printf("Error\n");
-        carrier->error = 1;
-    }
+	int		minus;
+	long	num;
+
+	num = 0;
+	minus = 1;
+	if (*av == '+' || *av == '-')
+		minus = *av++ == '+' ? 1 : -1;
+	if (*av < '0' || *av > '9')
+		print_error(a, 0, s);
+	while (*av >= '0' && *av <= '9')
+	{
+		num = num * 10 + (*av++ - '0');
+		if (num < 0 || num > 2147483648)
+			print_error(a, 0, s);
+	}
+	if (*av != 0 || (minus == 1 && num > 2147483647))
+		print_error(a, 0, s);
+	return (num * minus);
 }
 
-// A?Š¤?ƒ ?‚´ë¶??— ì¤‘ë³µ ?ˆ«? ?—¬ë¶?ë¥? ?™•?¸?•˜?Š” ?•¨?ˆ˜
-void        is_overlapped(t_carrier *carrier, t_stack **a)
+int		is_overlapped(t_stack **a, t_stack *p, int num)
 {
-    t_stack *temp;
-    t_stack *comp;
+	t_stack *comp;
 
-    temp = *a;
-    while (temp != 0)
-    {
-        comp = temp->next;
-        while (comp != 0)
-        {
-            if (temp->data == comp->data)
-            {
-                error(carrier);
-                printf("is overlapped!\n");
-                return ;
-            }
-            comp = comp->next;
-        }
-        temp = temp->next;
-    }
+	comp = *a;
+	while (comp != p)
+	{
+		if (comp->data == num)
+			return (1);
+		comp = comp->next;
+	}
+	return (0);
 }
 
-// ??? ?Š¤?ƒ?— ?‘¸?‹œ?–ˆ?„?•Œ ? •ë³´ë?? ë°”ê¿”ì£¼ëŠ” ?•¨?ˆ˜ ?
-void        init_pushed_stack(t_carrier *carrier, t_stack **stack, int data)
+void	link_stack(t_carrier *carrier, t_stack **a, t_stack **p, char **arr)
 {
-    t_stack *temp;
-    t_stack *tail;
+	t_stack *t;
 
-    temp = (t_stack *)malloc(sizeof(t_stack));
-    if (!temp)
-    {
-        printf("mallocation of temp failed\n");     
-        error(carrier);
-    }
-    temp->data = data;
-    //ìµœë??ê°? ìµœì†Œê°? ?‹¤?‹œ ?• ?‹¹
-    if (data > carrier->max)
-        carrier->max = data;
-    if (data < carrier->min)
-        carrier->min = data;
-    // string?˜•?ƒœë¡? ?“¤?–´?˜¬?•Œ ac_cnt == 1 ?´ê¸? ?•Œë¬¸ì— ac_cnt++;
-    carrier->ac_cnt++;
-    carrier->a_cnt++;
-    carrier->arem_cnt++;
-    //ë¹? ?Š¤?ƒ?´ ?“¤?–´?˜¤?Š” ê²½ìš°
-    if (*stack == 0)
-    {
-        *stack = temp;
-        (*stack)->prev = *stack;
-        return ;
-    }
-    tail = (*stack)->prev;
-    temp->next = 0;
-    tail->next = temp;
-    //?ƒˆë¡? ?“¤?–´?˜¨ ?…¸?“œë¥? ê¸°ì¡´ ?…¸?“œ?˜ ?‹¤?Œ ?…¸?“œë¡? ?—°ê²?
-    temp->prev = tail;
-    (*stack)->prev = temp;
+	t = (t_stack*)malloc(sizeof(t_stack) * 1);
+	if (t == 0)
+		print_error(a, 0, arr);
+	t->data = carrier->b_cnt;
+	carrier->min = carrier->min > carrier->b_cnt ? carrier->b_cnt : carrier->min;
+	// carrier->min = find_min(carrier->min, b_cnt);
+	carrier->max = carrier->max < carrier->b_cnt ? carrier->b_cnt : carrier->max;
+	// carrier->max = find_min(carrier->max, b_cnt);
+	t->next = 0;
+	if (*a == 0)
+	{
+		*a = t;
+		*p = t;
+		return ;
+	}
+	(*p)->next = t;
+	*p = t;
 }
 
-
-//?Š¤?ƒ?—?„œ head?…¸?“œë¥? êº¼ë‚´ê³? ë°˜í™˜?•˜?Š” ?•¨?ˆ˜
-int     pop(t_stack **stack)
+void	fill_stack(t_carrier *carrier, char **av, t_stack **a, int num)
 {
-    t_stack *pop;
-    int     data;
-    
-    if (!stack)
-        exit(1);
-    pop = *stack;
-    //headNextë¥? headë¡? ë°”ê¿”ì£¼ëŠ” ê³¼ì •
-    if ((*stack)->next)
-    {
-        (*stack)->next->prev = (*stack)->prev;
-        *stack = (*stack)->next;
-    }
-    data = pop->data;
-    free(pop);
-    return (data);
+	int		i; //argv[index]
+	int		j;
+	char	**arr;
+	t_stack *p;
+
+	i = 0;
+	p = 0;
+	while (++i < carrier->argc)
+	{
+		arr = ft_split(av[i], ' ');
+		if (arr == 0)
+			print_error(a, 0, 0);
+		j = -1;
+		while (arr[++j] != 0)
+		{
+			carrier->b_cnt = (int)get_integer(arr[j], a, arr);
+			link_stack(carrier, a, &p, arr);
+			if ((is_overlapped(a, p, carrier->b_cnt)) == 1)
+				print_error(a, 0, arr);
+			num++;
+		}
+		ft_split_free(arr);
+	}
+	carrier->b_cnt = 0;
+	carrier->argc = num;
 }
 
-//ë§¤ê°œë³??ˆ˜ node : ?Š¤?ƒ?— ?ƒˆë¡? ì§‘ì–´?„£?„ ?…¸?“œ
-void    push(t_stack **stack, int data)
-{
-    t_stack *newNode;
-    
-    newNode = (t_stack *)malloc(sizeof(t_stack));
-    newNode->data = data;
-    // ??? ?Š¤?ƒ?´ ë¹„ì–´?ˆ?„ ê²½ìš°
-    if (*stack == 0)
-    {
-        newNode->prev = newNode;
-        *stack = newNode;
-    }
-    // ?Š¤?ƒ?˜ headë¥? ?¸?ë¡? ?“¤?–´?˜¨ nodeë¡? êµì²´
-    else
-    {
-        newNode->prev = (*stack)->prev;
-        newNode->next = *stack;
-        *stack = newNode;
-    }
-}
-
-int    find_max(t_carrier *carrier, t_stack **stack, char c)
-{
-    t_stack     *curr;
-    int         max;
-    int         i;
-
-    if (!stack)
-        exit(1);
-    curr = *stack;
-    printf("ac_cnt in find_max: %d\n", carrier->ac_cnt);
-    if (!carrier->a_remnant && !carrier->b_remnant)
-        i =  carrier->ac_cnt;
-    else
-    {
-        if (c == 'a')
-            i = carrier->a_remnant->data;
-        else
-            i = carrier->b_remnant->data;
-    }
-
-    max = curr->data;
-    while (i--)
-    {
-        if (max < curr->data)
-            max = curr->data;
-        curr = curr->next;
-    }
-    return (max); 
-}
-
-int    find_min(t_carrier *carrier, t_stack **stack, char c)
-{
-    t_stack     *curr;
-    int         min;
-    int         i;
-
-    if (!stack)
-        exit(1);
-    curr = *stack;
-    if (!carrier->a_remnant && !carrier->b_remnant)
-        i =  carrier->ac_cnt;
-    else 
-    {
-        if (c == 'a')
-            i = carrier->a_remnant->data;
-        else
-            i = carrier->b_remnant->data;
-    }
-    min = curr->data;
-    while (i--)
-    {
-        if (min > curr->data)
-            min = curr->data;
-        curr = curr->next;
-    }
-    return (min); 
-}

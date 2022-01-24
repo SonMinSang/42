@@ -1,80 +1,94 @@
 #include "push_swap.h"
 
-int		find_pivot(t_stack **stack, int count)
+void	handle_one_two_a(t_carrier *carrier, t_stack **a)
 {
-	int max;
-	int min;
-	t_stack *curr;
+	t_stack *p;
 
-	curr = *stack;
-	max = curr->data;
-	min = curr->data;
-	while (count--)
+	p = carrier->b_remnant;
+	if (p != 0)
 	{
-		if (max < curr->data)
-			max = curr->data;
-		else if (min > curr->data)
-			min = curr->data;
-		curr = curr->next;
+		carrier->b_cnt = carrier->b_remnant->data;
+		carrier->b_remnant = carrier->b_remnant->next;
 	}
-	return ((max + min) / 2);
+	free(p);
+	if (carrier->a_cnt == 1)
+	{
+		ra(a, 0);
+		carrier->a_cnt = 0;
+		return ;
+	}
+	p = *a;
+	if (p->data > (p->next)->data)
+		sa(a, 0);
+	ra(a, 0);
+	ra(a, 0);
+	carrier->a_cnt = 0;
 }
 
+void	handle_one_two_b(t_carrier *carrier, t_stack **a, t_stack **b)
+{
+	t_stack *p;
+
+	carrier->pb_cnt -= carrier->b_cnt;
+	carrier->a_cnt = carrier->a_remnant->data;
+	p = carrier->a_remnant;
+	carrier->a_remnant = carrier->a_remnant->next;
+	free(p);
+	if (carrier->b_cnt == 1)
+	{
+		pa(a, b);
+		ra(a, 0);
+		carrier->b_cnt = 0;
+		return ;
+	}
+	p = *b;
+	if (p->data > (p->next)->data)
+		sb(b, 0);
+	pa(a, b);
+	ra(a, 0);
+	pa(a, b);
+	ra(a, 0);
+	carrier->b_cnt = 0;
+}
+
+void	b_to_a(t_carrier *carrier, t_stack **a, t_stack **b)
+{
+	int mid;
+
+	if (carrier->b_cnt < 3)
+	{
+		handle_one_two_b(carrier, a, b);
+		return ;
+	}
+	mid = get_pivot(b, carrier->b_cnt);
+	pivoting_b(carrier, a, b, mid);
+	attach_unsorted(carrier, a, b, 'b');
+	while (carrier->b_remnant->next != 0 && carrier->rrb_cnt > 0)
+	{
+		rrb(b, 0);
+		carrier->rrb_cnt--;
+	}
+	carrier->rrb_cnt = 0;
+}
 
 void	a_to_b(t_carrier *carrier, t_stack **a, t_stack **b)
 {
-	int pivot;
-	t_stack *head;
+	int		mid;
+	t_stack	*p;
 
-    debug(carrier, a, b);
-    
-	if (carrier->arem_cnt < 3)
+	if (carrier->a_cnt < 3)
 	{
-		handle_one_two_a(carrier, a, b);
+		handle_one_two_a(carrier, a);
 		return ;
 	}
-	//a_to_bì§¸ì§• ?š„ì¨?ï¿½ï¿½ì©? ì©íš„?š‰?šªì¨‰íš‹ ì§¸ì±ˆì©”ì±™
-    printf("carrier->arem_cnt : %d\n", carrier->a_cnt);
-    if (carrier->a_cnt == carrier->ac_cnt)
-	    pivot = (carrier->max + carrier->min) / 2;
-    else
-        pivot = find_pivot(a, carrier->a_cnt);
-	pivoting_a(carrier, a, b, pivot);
-    printf("debug after pivoting_a\n>>>\n");
-    
-    attach_unsorted(carrier, a, b, 'a');
-    print_stack(carrier, *a);
-    head = *a;
-    while (carrier->rra_num > 0 &&
-        (carrier->a_remnant->next || head->data == carrier->min))
-    {
-        rra(a);
-        carrier->rra_num--;
-    }
-    carrier->rra_num = 0;
-}
-
-void    b_to_a(t_carrier *carrier, t_stack **a, t_stack **b)
-{
-    int pivot;
-
-    debug(carrier, a, b);
-    print_stack(carrier, *b);
-    if (carrier->b_cnt < 3)
-    {
-        handle_one_two_b(carrier, a, b);
-        return ;
-    }
-    pivot = find_pivot(b, carrier->b_cnt);
-    pivoting_b(carrier, a, b, pivot);
-    attach_unsorted(carrier, a, b, 'b');
-    printf("a\n");
-    printf("%d\n", carrier->rrb_num);
-    while (carrier->b_remnant->next !=0 && carrier->rrb_num > 0)
-    {
-        printf("1111111111\n");
-        rrb(b);
-        carrier->rrb_num--;
-    }
-    carrier->rrb_num = 0;
+	mid = carrier->a_cnt == carrier->argc ? (carrier->min + carrier->max) / 2 : get_pivot(a, carrier->a_cnt);
+	pivoting_a(carrier, a, b, mid);
+	attach_unsorted(carrier, a, b, 'a');
+	p = *a;
+	while (carrier->rra_cnt > 0 && (carrier->a_remnant->next != 0 || p->data == carrier->min))
+	{
+		rra(a, 0);
+		carrier->rra_cnt--;
+	}
+	carrier->rra_cnt = 0;
 }

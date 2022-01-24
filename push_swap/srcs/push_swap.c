@@ -1,73 +1,70 @@
 #include "push_swap.h"
 
-
-// ?? node ì¶”ê?? -> push ?•¨?ˆ˜?˜ ?¸? ???
-void     fill_stack(t_carrier *carrier, t_stack **a, int size, char **argv)
+int		is_sorted(t_stack **a)
 {
-    int data;
-    char **array;
-    int arr_index;
-    int argv_index;
+	int		before;
+	t_stack *p;
 
-    argv_index = 0;
-    if (!argv)
-        return ;
-    while (argv[argv_index])
-    {
-        arr_index = 0;
-        array = ft_split(argv[argv_index], ' ');
-        if (!array)
-        {
-            printf("array is null");
-            error(carrier);
-        }
-        while (array[arr_index])
-        {
-            data = ft_atoi(array[arr_index], carrier);
-            init_pushed_stack(carrier, a, data); 
-            arr_index++;
-        }
-        argv_index++;
-        free_arr(array);
-    }
-    is_overlapped(carrier, a);
-    return ;
+	p = *a;
+	before = p->data;
+	p = p->next;
+	while (p != 0)
+	{
+		if (before > p->data)
+			return (0);
+		before = p->data;
+		p = p->next;
+	}
+	return (1);
 }
 
-void    init_carrier(t_carrier *carrier)
+void	push_swap(t_carrier *carrier, t_stack **a, t_stack **b)
 {
-    carrier->ac_cnt = 0;
-    carrier->max = -2147483648;
-    carrier->min = 2147483647;
-    carrier->pivot = 0;
-    carrier->a_cnt = 0;
-    carrier->b_cnt = 0;    
-    carrier->error = 0;
-    carrier->arem_cnt = 0;
-    carrier->brem_cnt = 0;
-    carrier->pa_num = 0;
-    carrier->pb_num = 0;
-    carrier->a_remnant = 0;
-    carrier->b_remnant = 0;
-    carrier->rra_num = 0;
-    carrier->rrb_num = 0;
-    return ;
+	if (carrier->argc == 1 || ((is_sorted(a)) == 1))
+		return ;
+	else if (carrier->argc == 2)
+	{
+		if ((*a)->data == carrier->min)
+			return ;
+		else
+			sa(a, 0);
+	}
+	else if (carrier->argc == 3)
+		sort_three(carrier, a);
+	else if (carrier->argc == 5)
+		sort_five(carrier, a, b);
+	else
+		sort_many(carrier, a, b);
 }
 
-//ì±„ì›Œì§? a?Š¤?ƒ?„ ? •? ¬?•˜?Š” ë¡œì§?„ ?‹´??? ?•¨?ˆ˜
-//void    push_swap(t_carrier *carrier, t_stack *a, t_stack *b)
-//{
-//}
-// int		main(int argc, char **argv)
-// {
-//     t_carrier carrier;
-//     t_stack *a;
-//     t_stack *b;
-//     a = 0;
-//     b = 0;
-//     if (argc < 2)
-//         exit(0);
-//     init_carrier(&carrier);
-//     fill_stack(&a, argc - 1, &argv[1], &carrier);
-//     push_swap(carrier, a, b);
-// }
+void	init_carrier(int ac, t_carrier *r)
+{
+	r->argc = ac;
+	r->max = -2147483648;
+	r->min = 2147483647;
+	r->pb_cnt = 0;
+	r->rra_cnt = 0;
+	r->rrb_cnt = 0;
+	r->b_cnt = 0;
+	r->a_remnant = 0;
+	r->b_remnant = 0;
+}
+
+int		main(int ac, char **av)
+{
+	t_stack		*a;
+	t_stack		*b;
+	t_carrier	carrier;
+
+	if (ac >= 2)
+	{
+		a = 0;
+		b = 0;
+		init_carrier(ac, &carrier);
+		fill_stack(&carrier, av, &a, 0);
+		push_swap(&carrier, &a, &b);
+		print_stack(&carrier, a);
+		free_stack(&a);
+	}
+	return (0);
+}
