@@ -2,7 +2,7 @@
 
 void	handle_one_two_a(t_carrier *carrier, t_stack **a)
 {
-	t_stack *p;
+	t_stack	*p;
 
 	p = carrier->b_remnant;
 	if (p != 0)
@@ -27,7 +27,7 @@ void	handle_one_two_a(t_carrier *carrier, t_stack **a)
 
 void	handle_one_two_b(t_carrier *carrier, t_stack **a, t_stack **b)
 {
-	t_stack *p;
+	t_stack	*p;
 
 	carrier->pb_cnt -= carrier->b_cnt;
 	carrier->a_cnt = carrier->a_remnant->data;
@@ -53,7 +53,7 @@ void	handle_one_two_b(t_carrier *carrier, t_stack **a, t_stack **b)
 
 void	b_to_a(t_carrier *carrier, t_stack **a, t_stack **b)
 {
-	int mid;
+	int	mid;
 
 	if (carrier->b_cnt < 3)
 	{
@@ -81,11 +81,15 @@ void	a_to_b(t_carrier *carrier, t_stack **a, t_stack **b)
 		handle_one_two_a(carrier, a);
 		return ;
 	}
-	mid = carrier->a_cnt == carrier->argc ? (carrier->min + carrier->max) / 2 : get_pivot(a, carrier->a_cnt);
+	if (carrier->a_cnt == carrier->argc)
+		mid = (carrier->min + carrier->max) / 2;
+	else
+		mid = get_pivot(a, carrier->a_cnt);
 	pivoting_a(carrier, a, b, mid);
 	attach_unsorted(carrier, a, b, 'a');
 	p = *a;
-	while (carrier->rra_cnt > 0 && (carrier->a_remnant->next != 0 || p->data == carrier->min))
+	while (carrier->rra_cnt > 0 && (carrier->a_remnant->next != 0
+			|| p->data == carrier->min))
 	{
 		rra(a, 0);
 		carrier->rra_cnt--;

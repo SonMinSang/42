@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int		get_pivot(t_stack **p, int num)
+int	get_pivot(t_stack **p, int num)
 {
 	int		max;
 	int		min;
@@ -17,14 +17,14 @@ int		get_pivot(t_stack **p, int num)
 			min = t->data;
 		t = t->next;
 	}
-	return (max + min) / 2;
+	return ((max + min) / 2);
 }
 
 void	attach_unsorted(t_carrier *carrier, t_stack **a, t_stack **b, char c)
 {
-	t_stack *t;
+	t_stack	*t;
 
-	t = (t_stack*)malloc(sizeof(t_stack) * 1);
+	t = (t_stack *)malloc(sizeof(t_stack) * 1);
 	if (t == 0)
 	{
 		while (carrier->a_remnant != 0)
@@ -41,18 +41,12 @@ void	attach_unsorted(t_carrier *carrier, t_stack **a, t_stack **b, char c)
 		}
 		print_error(a, b, 0);
 	}
-	t->data = c == 'a' ? carrier->rra_cnt : carrier->rrb_cnt;
-	t->next = c == 'a' ? carrier->a_remnant : carrier->b_remnant;
-	if (c == 'a')
-		carrier->a_remnant = t;
-	else
-		carrier->b_remnant = t;
+	check_ab(carrier, t, c);
 }
-
 
 void	pivoting_a(t_carrier *carrier, t_stack **a, t_stack **b, int mid)
 {
-	t_stack *p;
+	t_stack	*p;
 
 	while (carrier->a_cnt > 0)
 	{
@@ -74,7 +68,7 @@ void	pivoting_a(t_carrier *carrier, t_stack **a, t_stack **b, int mid)
 
 void	pivoting_b(t_carrier *carrier, t_stack **a, t_stack **b, int mid)
 {
-	t_stack *p;
+	t_stack	*p;
 
 	while (carrier->b_cnt > 0)
 	{

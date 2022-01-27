@@ -1,9 +1,9 @@
 #include "push_swap.h"
 
-int		is_sorted(t_stack **a)
+int	is_sorted(t_stack **a)
 {
 	int		before;
-	t_stack *p;
+	t_stack	*p;
 
 	p = *a;
 	before = p->data;
@@ -50,7 +50,7 @@ void	init_carrier(int ac, t_carrier *r)
 	r->b_remnant = 0;
 }
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_stack		*a;
 	t_stack		*b;
@@ -63,7 +63,6 @@ int		main(int ac, char **av)
 		init_carrier(ac, &carrier);
 		fill_stack(&carrier, av, &a, 0);
 		push_swap(&carrier, &a, &b);
-		print_stack(&carrier, a);
 		free_stack(&a);
 	}
 	return (0);

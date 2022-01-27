@@ -2,7 +2,7 @@
 
 void	ft_split_free(char **s)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (s[++i] != 0)
@@ -13,8 +13,8 @@ void	ft_split_free(char **s)
 
 void	free_stack(t_stack **a_or_b)
 {
-	t_stack *p;
-	t_stack *t;
+	t_stack	*p;
+	t_stack	*t;
 
 	if (*a_or_b == 0)
 		return ;

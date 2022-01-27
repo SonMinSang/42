@@ -2,7 +2,7 @@
 
 void	print_error(t_stack **a, t_stack **b, char **s)
 {
-	int i;
+	int	i;
 
 	if (a != 0)
 		free_stack(a);

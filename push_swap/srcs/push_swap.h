@@ -4,13 +4,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct		s_stack
+typedef struct s_stack
 {
 	int				data;
 	struct s_stack	*next;
 }					t_stack;
 
-typedef struct		s_carrier
+typedef struct s_carrier
 {
 	int				argc;
 	int				min;
@@ -28,8 +28,7 @@ typedef struct		s_carrier
 /**                     libft.c                     **/
 /*****************************************************/
 
-char			**ft_split(char const *s, char c);
-
+char		**ft_split(char const *s, char c);
 
 /*****************************************************/
 /**                   push_swap.c                   **/
@@ -39,15 +38,17 @@ int			is_sorted(t_stack **a);
 void		push_swap(t_carrier *carrier, t_stack **a, t_stack **b);
 void		init_carrier(int ac, t_carrier *r);
 
-
 /*****************************************************/
 /**                     utils.c                     **/
 /*****************************************************/
 
 long		get_integer(char *av, t_stack **a, char **s);
 int			is_overlapped(t_stack **a, t_stack *p, int num);
-void		link_stack(t_carrier *carrier, t_stack **a, t_stack **p, char **arr);
-void		fill_stack(t_carrier *carrier, char **av, t_stack **a, int num);
+void		link_stack(t_carrier *carrier, t_stack **a,
+				t_stack **p, char **arr);
+void		fill_stack(t_carrier *carrier, char **av,
+				t_stack **a, int num);
+void		check_ab(t_carrier *carrier, t_stack *t, char c);
 
 /*****************************************************/
 /**                    command.c                    **/
@@ -62,7 +63,6 @@ void		rb(t_stack **b, char is_rr);
 void		rra(t_stack **a, char is_rrr);
 void		rrb(t_stack **b, char is_rrr);
 
-
 /*****************************************************/
 /**                     sort.c                      **/
 /*****************************************************/
@@ -73,7 +73,6 @@ void		sort_three(t_carrier *carrier, t_stack **a);
 void		sort_five(t_carrier *carrier, t_stack **a, t_stack **b);
 void		sort_many(t_carrier *carrier, t_stack **a, t_stack **b);
 
-
 /*****************************************************/
 /**                     logic.c                     **/
 /*****************************************************/
@@ -83,24 +82,24 @@ void		handle_one_two_b(t_carrier *carrier, t_stack **a, t_stack **b);
 void		b_to_a(t_carrier *carrier, t_stack **a, t_stack **b);
 void		a_to_b(t_carrier *carrier, t_stack **a, t_stack **b);
 
-
-
 /*****************************************************/
 /**                   logic_utils.c                 **/
 /*****************************************************/
 
 int			get_pivot(t_stack **p, int num);
-void		attach_unsorted(t_carrier *carrier, t_stack **a, t_stack **b, char c);
-void		pivoting_a(t_carrier *carrier, t_stack **a, t_stack **b, int mid);
-void		pivoting_b(t_carrier *carrier, t_stack **a, t_stack **b, int mid);
-
+void		attach_unsorted(t_carrier *carrier, t_stack **a,
+				t_stack **b, char c);
+void		pivoting_a(t_carrier *carrier, t_stack **a,
+				t_stack **b, int mid);
+void		pivoting_b(t_carrier *carrier, t_stack **a,
+				t_stack **b, int mid);
 
 /*****************************************************/
 /**                      find.c                     **/
 /*****************************************************/
 
 int			find_max(int old, int new);
-int    		find_min(int old, int new);
+int			find_min(int old, int new);
 void		find_three(t_carrier *carrier, t_stack **a);
 
 /*****************************************************/
@@ -115,7 +114,6 @@ void		free_stack(t_stack **a_or_b);
 /*****************************************************/
 
 void		print_error(t_stack **a, t_stack **b, char **s);
-
 
 /*****************************************************/
 /**                      debug.c                    **/

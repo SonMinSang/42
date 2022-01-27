@@ -2,7 +2,7 @@
 
 static size_t	get_word_num(char const *s, char c)
 {
-	size_t num;
+	size_t	num;
 
 	num = 0;
 	while (*s != 0)
@@ -19,16 +19,16 @@ static size_t	get_word_num(char const *s, char c)
 	return (num);
 }
 
-static void		split_cpy(char *arr, char *p, char const *s)
+static void	split_cpy(char *arr, char *p, char const *s)
 {
 	while (p < s)
 		*arr++ = *p++;
 	*arr = 0;
 }
 
-static void		free_arr(char **arr, size_t i)
+static void	free_arr(char **arr, size_t i)
 {
-	size_t j;
+	size_t	j;
 
 	j = 0;
 	while (j < i)
@@ -40,9 +40,9 @@ static void		free_arr(char **arr, size_t i)
 	arr = 0;
 }
 
-static void		do_split(char **arr, char const *s, char c, size_t i)
+static void	do_split(char **arr, char const *s, char c, size_t i)
 {
-	char *p;
+	char	*p;
 
 	if (*s == 0)
 		return ;
@@ -50,11 +50,11 @@ static void		do_split(char **arr, char const *s, char c, size_t i)
 	{
 		if (*s != c && *s != 0)
 		{
-			p = (char*)s;
+			p = (char *)s;
 			while (*s != c && *s != 0)
 				s++;
-			if (!(arr[i] = (char*)malloc(sizeof(char)
-			* (s - p + 1))))
+			arr[i] = (char *)malloc(sizeof(char *) * (s - p + 1));
+			if (!arr[i])
 			{
 				free_arr(arr, i);
 				return ;
@@ -67,19 +67,19 @@ static void		do_split(char **arr, char const *s, char c, size_t i)
 	}
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**arr;
 	size_t	num;
 
 	if (s == 0)
-		return ((void*)0);
+		return ((void *)0);
 	num = get_word_num(s, c);
 	if (num == 0)
-		return ((void*)0);
-	arr = (char**)malloc(sizeof(char*) * (num + 1));
+		return ((void *)0);
+	arr = (char **)malloc(sizeof(char *) * (num + 1));
 	if (arr == 0)
-		return ((void*)0);
+		return ((void *)0);
 	arr[num] = 0;
 	do_split(arr, s, c, 0);
 	return (arr);

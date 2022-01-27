@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 long	get_integer(char *av, t_stack **a, char **s)
 {
 	int		minus;
@@ -9,7 +8,12 @@ long	get_integer(char *av, t_stack **a, char **s)
 	num = 0;
 	minus = 1;
 	if (*av == '+' || *av == '-')
-		minus = *av++ == '+' ? 1 : -1;
+	{
+		if (*av++ == '+')
+			minus = 1;
+		else
+			minus = -1;
+	}
 	if (*av < '0' || *av > '9')
 		print_error(a, 0, s);
 	while (*av >= '0' && *av <= '9')
@@ -23,9 +27,9 @@ long	get_integer(char *av, t_stack **a, char **s)
 	return (num * minus);
 }
 
-int		is_overlapped(t_stack **a, t_stack *p, int num)
+int	is_overlapped(t_stack **a, t_stack *p, int num)
 {
-	t_stack *comp;
+	t_stack	*comp;
 
 	comp = *a;
 	while (comp != p)
@@ -39,16 +43,16 @@ int		is_overlapped(t_stack **a, t_stack *p, int num)
 
 void	link_stack(t_carrier *carrier, t_stack **a, t_stack **p, char **arr)
 {
-	t_stack *t;
+	t_stack	*t;
 
-	t = (t_stack*)malloc(sizeof(t_stack) * 1);
+	t = (t_stack *)malloc(sizeof(t_stack) * 1);
 	if (t == 0)
 		print_error(a, 0, arr);
 	t->data = carrier->b_cnt;
-	carrier->min = carrier->min > carrier->b_cnt ? carrier->b_cnt : carrier->min;
-	// carrier->min = find_min(carrier->min, b_cnt);
-	carrier->max = carrier->max < carrier->b_cnt ? carrier->b_cnt : carrier->max;
-	// carrier->max = find_min(carrier->max, b_cnt);
+	if (carrier->min > carrier->b_cnt)
+		carrier->min = carrier->b_cnt;
+	if (carrier->max < carrier->b_cnt)
+		carrier->max = carrier->b_cnt;
 	t->next = 0;
 	if (*a == 0)
 	{
@@ -62,10 +66,10 @@ void	link_stack(t_carrier *carrier, t_stack **a, t_stack **p, char **arr)
 
 void	fill_stack(t_carrier *carrier, char **av, t_stack **a, int num)
 {
-	int		i; //argv[index]
+	int		i;
 	int		j;
 	char	**arr;
-	t_stack *p;
+	t_stack	*p;
 
 	i = 0;
 	p = 0;
@@ -89,3 +93,18 @@ void	fill_stack(t_carrier *carrier, char **av, t_stack **a, int num)
 	carrier->argc = num;
 }
 
+void	check_ab(t_carrier *carrier, t_stack *t, char c)
+{
+	if (c == 'a')
+		t->data = carrier->rra_cnt;
+	else
+		t->data = carrier->rrb_cnt;
+	if (c == 'a')
+		t->next = carrier->a_remnant;
+	else
+		t->next = carrier->b_remnant;
+	if (c == 'a')
+		carrier->a_remnant = t;
+	else
+		carrier->b_remnant = t;
+}

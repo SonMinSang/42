@@ -1,7 +1,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-int		is_descending(t_carrier *carrier, t_stack **a)
+int	is_descending(t_carrier *carrier, t_stack **a)
 {
 	int		before;
 	t_stack	*p;
@@ -21,9 +21,9 @@ int		is_descending(t_carrier *carrier, t_stack **a)
 	return (1);
 }
 
-int		sort_descending(t_carrier *carrier, t_stack **a, t_stack **b)
+int	sort_descending(t_carrier *carrier, t_stack **a, t_stack **b)
 {
-	int i;
+	int	i;
 
 	i = carrier->argc;
 	pb(a, b);
@@ -41,16 +41,15 @@ int		sort_descending(t_carrier *carrier, t_stack **a, t_stack **b)
 void	sort_three(t_carrier *carrier, t_stack **a)
 {
 	int		before;
-	t_stack *p;
+	t_stack	*p;
 
 	find_three(carrier, a);
-
 	p = *a;
 	before = p->data;
 	p = p->next;
-	if ((before == carrier->min && p->data == carrier->max) ||
-	(before == carrier->max && p->data != carrier->min) ||
-	(before != carrier->max && p->data == carrier->min))
+	if ((before == carrier->min && p->data == carrier->max)
+		|| (before == carrier->max && p->data != carrier->min)
+		|| (before != carrier->max && p->data == carrier->min))
 		sa(a, 0);
 	p = *a;
 	before = p->data;
@@ -64,7 +63,7 @@ void	sort_three(t_carrier *carrier, t_stack **a)
 
 void	sort_five(t_carrier *carrier, t_stack **a, t_stack **b)
 {
-	t_stack *curr;
+	t_stack	*curr;
 
 	while (carrier->argc--)
 	{
@@ -75,17 +74,11 @@ void	sort_five(t_carrier *carrier, t_stack **a, t_stack **b)
 			ra(a, 0);
 	}
 	sort_three(carrier, a);
-	print_stack(carrier, *a);
-	print_stack(carrier, *b);
-
-	printf("b : %d, b->next : %d\n", (*b)->data, (*b)->next->data);
 	if ((*b)->data < (*b)->next->data)
 		sb(b, 0);
 	pa(a, b);
 	ra(a, 0);
 	pa(a, b);
-	
-	printf("sort five\n");
 	return ;
 }
 
@@ -94,7 +87,8 @@ void	sort_many(t_carrier *carrier, t_stack **a, t_stack **b)
 	carrier->a_cnt = carrier->argc;
 	if ((is_sorted(a)) == 1)
 		return ;
-	if ((is_descending(carrier, a)) == 1 && (sort_descending(carrier, a, b)) == 1)
+	if ((is_descending(carrier, a)) == 1
+		&& (sort_descending(carrier, a, b)) == 1)
 		return ;
 	while (carrier->a_cnt != 0)
 	{

@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int			find_max(int old, int new)
+int	find_max(int old, int new)
 {
 	int	max;
 
@@ -10,9 +10,9 @@ int			find_max(int old, int new)
 	return (max);
 }
 
-int    		find_min(int old, int new)
+int	find_min(int old, int new)
 {
-	int min;
+	int	min;
 
 	min = old;
 	if (old > new)
@@ -22,7 +22,7 @@ int    		find_min(int old, int new)
 
 void	find_three(t_carrier *carrier, t_stack **a)
 {
-	t_stack *p;
+	t_stack	*p;
 
 	if (carrier->argc != 3)
 	{
@@ -34,6 +34,6 @@ void	find_three(t_carrier *carrier, t_stack **a)
 			carrier->max = find_max(p->data, carrier->max);
 			carrier->min = find_min(p->data, carrier->min);
 			p = p->next;
-		} 
+		}
 	}
 }
