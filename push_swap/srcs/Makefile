@@ -5,7 +5,6 @@ RM = rm -rf
 
 FILE = command1\
 		command2\
-		debug\
 		error\
 		find\
 		free\
@@ -33,11 +32,11 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	$(RM) $(OBJS) $(OBJS_BONUS)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: clean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
